@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="dz.da3sou9a.oualaeddine.lmdulator.activities.Customizer"
+    tools:showIn="@layout/activity_customizer">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nom de la specialité:"
+                    android:id="@+id/textSpecName"
+                    android:width="90dp"
+                    android:textSize="@dimen/abc_text_size_medium_material"
+                    android:layout_span="3"
+                    tools:ignore="PrivateResource"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/SpecName"
+                    android:inputType="text"
+                    android:width="120dp"
+                    android:layout_column="3"
+                    android:layout_span="5" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Année:"
+                    android:id="@+id/textView4"
+                    android:width="140dp"
+                    android:textSize="@dimen/abc_text_size_medium_material"
+                    android:maxLines="1" />
+
+                <Space
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"
+                    android:layout_column="4" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/textAnnee"
+                    android:layout_column="4"
+                    android:width="60dp" />
+
+                <Space
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"
+                    android:layout_column="6" />
+
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="credits annuel minimum:"
+                    android:id="@+id/textView11"
+                    android:layout_column="0"
+                    android:width="130dp"
+                    android:textSize="@dimen/abc_text_size_medium_material"
+
+                    android:layout_span="5"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/credMinAnnee"
+                    android:layout_column="5"
+                    android:width="60dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:text="credits semestriel minimum:"
+                    android:id="@+id/textView14"
+                    android:width="140dp"
+                    android:textSize="@dimen/abc_text_size_medium_material"
+
+                    android:layout_span="5"
+                    android:maxLines="1" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/credS1min"
+                    android:width="60dp"
+                    android:layout_column="5" />
+
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:ems="10"
+                    android:id="@+id/credS2min"
+                    android:layout_column="6"
+                    android:width="60dp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="entrer les modules"
+                    android:id="@+id/button"
+                    android:width="130dp"
+                    android:layout_span="7"
+                    android:maxLines="1" />
+
+            </TableRow>
+
+            <Button
+                style="?android:attr/buttonStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/buttonSave"
+                android:id="@+id/btnS" />
+
+        </TableLayout>
+
+    </RelativeLayout>
+
+</android.support.v4.widget.NestedScrollView>
