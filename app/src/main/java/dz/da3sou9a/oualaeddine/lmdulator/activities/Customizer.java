@@ -10,11 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import java.io.Serializable;
-
 import dz.da3sou9a.oualaeddine.lmdulator.R;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
 
 public class Customizer extends AppCompatActivity {
 
@@ -49,17 +45,17 @@ public class Customizer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentNotes = new Intent(Customizer.this, Launcher.class);
-                Semestre s1,s2;Annee year;
-                s1=new Semestre(1);
-                s2=new Semestre(2);
+                //       Semestre s1,s2;Annee year;
+                //        s1=new Semestre(1);
+                //        s2=new Semestre(2);
 
-                s1.setSemesterCred(Integer.parseInt(credS1min.getText().toString()));
-                s2.setSemesterCred(Integer.parseInt(credS2min.getText().toString()));
+//                s1.setSemesterCred(Integer.parseInt(credS1min.getText().toString()));
+                //          s2.setSemesterCred(Integer.parseInt(credS2min.getText().toString()));
 
-                year = new Annee(annee.getText().toString(),s1,s2);
-                year.setCred(Integer.parseInt(credAnnuelMin.getText().toString()));
+                //         year = new Annee(annee.getText().toString(),s1,s2);
+                //         year.setCred(Integer.parseInt(credAnnuelMin.getText().toString()));
 
-                intentNotes.putExtra("year", (Serializable) year);
+                //          intentNotes.putExtra("year", (Serializable) year);
 
                 startActivity(intentNotes);
             }

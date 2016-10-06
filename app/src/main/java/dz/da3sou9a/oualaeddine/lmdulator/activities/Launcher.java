@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TableLayout;
 import android.widget.TableRow;
+import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
@@ -265,13 +266,13 @@ public class Launcher extends AppCompatActivity
             TextView moduleMoy = new TextView(getContext());
             TextView moduleCred = new TextView(getContext());
 
-            TableRow.LayoutParams lp = new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT, (float) 1.0);
-            TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT, (float) 1.0);
+            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, (float) 1.0);
+            LayoutParams layoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT, (float) 1.0);
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                 /** for(Object next :unitsS1)
                  {
-                 for (ModuleG next2 :((Unit) next).getUnitModulesList()){
+                 for (ModuleG next2 :((Unit) next).getUnitModulesList()){**/
 
                  tabRow.addView(moduleName);
                  tabRow.addView(moduleTp);
@@ -289,8 +290,12 @@ public class Launcher extends AppCompatActivity
                  moduleCred.setLayoutParams(lp);
                  moduleMoy.setLayoutParams(lp);
 
-
-                 table.addView(tabRow);
+                moduleCont.setText("00");
+                moduleCred.setText("00");
+                moduleMoy.setText("00");
+                moduleTd.setText("00");
+                moduleName.setText("ouala");
+                table.addView(tabRow);/**
                  }
                  }**/
 
@@ -298,7 +303,7 @@ public class Launcher extends AppCompatActivity
             } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
                 /** for(Object next :unitsS2)
                  {
-                 for (ModuleG next2 :((Unit) next).getUnitModulesList()){
+                 for (ModuleG next2 :((Unit) next).getUnitModulesList()){**/
 
                  tabRow.addView(moduleName);
                  tabRow.addView(moduleTp);
@@ -316,9 +321,16 @@ public class Launcher extends AppCompatActivity
                  moduleCred.setLayoutParams(lp);
                  moduleMoy.setLayoutParams(lp);
 
-
-
+                moduleCont.setText("00");
+                moduleCred.setText("00");
+                moduleMoy.setText("00");
+                moduleTd.setText("00");
+                moduleName.setText("ouala");
                  table.addView(tabRow);
+//TODO: set the colors
+
+
+                /**
                  }
                  }
                  **/

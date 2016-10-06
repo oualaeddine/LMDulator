@@ -19,13 +19,8 @@ import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
 
-import java.util.List;
-
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
-import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Unit;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -106,6 +101,10 @@ public class NotesTable extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        View rootView, recapView;
+        TableLayout table;
+        TableRow tabRow;
+
         public PlaceholderFragment() {
         }
 
@@ -121,11 +120,6 @@ public class NotesTable extends AppCompatActivity {
             return fragment;
         }
 
-
-        View rootView,recapView;
-
-        TableLayout table ;
-        TableRow tabRow;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -212,67 +206,72 @@ public class NotesTable extends AppCompatActivity {
             LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, (float) 1.0);
             TableLayout.LayoutParams layoutParams = new TableLayout.LayoutParams(MATCH_PARENT, WRAP_CONTENT, (float) 1.0);
 
-            if(getArguments().getInt(ARG_SECTION_NUMBER)==1)
-            {
-               /** for(Object next :unitsS1)
-                {
-                    for (ModuleG next2 :((Unit) next).getUnitModulesList()){
+            if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
+                /** for(Object next :unitsS1)
+                 {
+                 for (ModuleG next2 :((Unit) next).getUnitModulesList()){**/
 
-                        tabRow.addView(moduleName);
-                        tabRow.addView(moduleTp);
-                        tabRow.addView(moduleTd);
-                        tabRow.addView(moduleCont);
-                        tabRow.addView(moduleCred);
-                        tabRow.addView(moduleMoy);
+                tabRow.addView(moduleName);
+                tabRow.addView(moduleTp);
+                tabRow.addView(moduleTd);
+                tabRow.addView(moduleCont);
+                tabRow.addView(moduleCred);
+                tabRow.addView(moduleMoy);
 
-                        tabRow.setLayoutParams(layoutParams);
+                tabRow.setLayoutParams(layoutParams);
 
-                        moduleName.setLayoutParams(lp);
-                        moduleTp.setLayoutParams(lp);
-                        moduleTd.setLayoutParams(lp);
-                        moduleCont.setLayoutParams(lp);
-                        moduleCred.setLayoutParams(lp);
-                        moduleMoy.setLayoutParams(lp);
+                moduleName.setLayoutParams(lp);
+                moduleTp.setLayoutParams(lp);
+                moduleTd.setLayoutParams(lp);
+                moduleCont.setLayoutParams(lp);
+                moduleCred.setLayoutParams(lp);
+                moduleMoy.setLayoutParams(lp);
 
-
-                        table.addView(tabRow);
-                    }
-                }**/
+                moduleCont.setText("00");
+                moduleCred.setText("00");
+                moduleMoy.setText("00");
+                moduleTd.setText("00");
+                moduleName.setText("ouala");
+                table.addView(tabRow);/**
+                 }
+                 }**/
 
                 return rootView;
-            }
-            else if (getArguments().getInt(ARG_SECTION_NUMBER)==2)
-            {
-               /** for(Object next :unitsS2)
-                {
-                    for (ModuleG next2 :((Unit) next).getUnitModulesList()){
+            } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
+                /** for(Object next :unitsS2)
+                 {
+                 for (ModuleG next2 :((Unit) next).getUnitModulesList()){**/
 
-                        tabRow.addView(moduleName);
-                        tabRow.addView(moduleTp);
-                        tabRow.addView(moduleTd);
-                        tabRow.addView(moduleCont);
-                        tabRow.addView(moduleCred);
-                        tabRow.addView(moduleMoy);
+                tabRow.addView(moduleName);
+                tabRow.addView(moduleTp);
+                tabRow.addView(moduleTd);
+                tabRow.addView(moduleCont);
+                tabRow.addView(moduleCred);
+                tabRow.addView(moduleMoy);
 
-                        tabRow.setLayoutParams(layoutParams);
+                tabRow.setLayoutParams(layoutParams);
 
-                        moduleName.setLayoutParams(lp);
-                        moduleTp.setLayoutParams(lp);
-                        moduleTd.setLayoutParams(lp);
-                        moduleCont.setLayoutParams(lp);
-                        moduleCred.setLayoutParams(lp);
-                        moduleMoy.setLayoutParams(lp);
+                moduleName.setLayoutParams(lp);
+                moduleTp.setLayoutParams(lp);
+                moduleTd.setLayoutParams(lp);
+                moduleCont.setLayoutParams(lp);
+                moduleCred.setLayoutParams(lp);
+                moduleMoy.setLayoutParams(lp);
 
+                moduleCont.setText("00");
+                moduleCred.setText("00");
+                moduleMoy.setText("00");
+                moduleTd.setText("00");
+                moduleName.setText("ouala");
+                table.addView(tabRow);
+//TODO: set the colors
 
-
-                        table.addView(tabRow);
-                    }
-                }
-**/
+                /**
+                 }
+                 }
+                 **/
                 return rootView;
-            }
-            else
-            {
+            } else {
                 return recapView;
             }
         }
