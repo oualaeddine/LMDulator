@@ -48,7 +48,7 @@ public class Customizer extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent intentNotes = new Intent(Customizer.this,Launcher.class);
+                Intent intentNotes = new Intent(Customizer.this, Launcher.class);
                 Semestre s1,s2;Annee year;
                 s1=new Semestre(1);
                 s2=new Semestre(2);
@@ -59,9 +59,9 @@ public class Customizer extends AppCompatActivity {
                 year = new Annee(annee.getText().toString(),s1,s2);
                 year.setCred(Integer.parseInt(credAnnuelMin.getText().toString()));
 
-               // intentNotes.putExtra("year", (Serializable) year);
+                intentNotes.putExtra("year", (Serializable) year);
 
-               // startActivity(intentNotes);
+                startActivity(intentNotes);
             }
         });
 
