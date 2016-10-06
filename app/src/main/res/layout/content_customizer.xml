@@ -16,31 +16,37 @@
 
         <TableLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginTop="4dp"
+            android:baselineAligned="false">
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/textSpecName"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:text="Nom de la specialité:"
-                    android:id="@+id/textSpecName"
-                    android:width="90dp"
-                    android:textSize="@dimen/abc_text_size_medium_material"
                     android:layout_span="3"
-                    tools:ignore="PrivateResource"
-                    android:maxLines="1" />
+                    android:layout_weight="1"
+                    android:width="90dp"
+                    android:maxLines="1"
+                    android:text="Nom de la specialité:"
+                    android:textSize="@dimen/abc_text_size_medium_material"
+                    tools:ignore="PrivateResource" />
 
                 <EditText
+                    android:id="@+id/SpecName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/SpecName"
-                    android:inputType="text"
-                    android:width="120dp"
                     android:layout_column="3"
-                    android:layout_span="5" />
+                    android:layout_span="5"
+                    android:layout_weight="1"
+                    android:width="120dp"
+                    android:inputType="text" />
             </TableRow>
 
             <TableRow
@@ -48,32 +54,36 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/textView4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Année:"
-                    android:id="@+id/textView4"
+                    android:layout_weight="1"
                     android:width="140dp"
-                    android:textSize="@dimen/abc_text_size_medium_material"
-                    android:maxLines="1" />
+                    android:maxLines="1"
+                    android:text="Année:"
+                    android:textSize="@dimen/abc_text_size_medium_material" />
 
                 <Space
                     android:layout_width="60dp"
                     android:layout_height="20dp"
-                    android:layout_column="4" />
+                    android:layout_column="4"
+                    android:layout_weight="1" />
 
                 <EditText
+                    android:id="@+id/textAnnee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/textAnnee"
                     android:layout_column="4"
-                    android:width="60dp" />
+                    android:layout_weight="1"
+                    android:width="60dp"
+                    android:ems="10"
+                    android:inputType="number" />
 
                 <Space
                     android:layout_width="60dp"
                     android:layout_height="20dp"
-                    android:layout_column="6" />
+                    android:layout_column="6"
+                    android:layout_weight="1" />
 
             </TableRow>
 
@@ -82,26 +92,28 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:text="credits annuel minimum:"
                     android:id="@+id/textView11"
-                    android:layout_column="0"
-                    android:width="130dp"
-                    android:textSize="@dimen/abc_text_size_medium_material"
+                    android:layout_width="match_parent"
 
+                    android:layout_height="wrap_content"
+                    android:layout_column="0"
                     android:layout_span="5"
-                    android:maxLines="1" />
+                    android:layout_weight="1"
+                    android:width="130dp"
+
+                    android:maxLines="1"
+                    android:text="credits annuel minimum:"
+                    android:textSize="@dimen/abc_text_size_medium_material" />
 
                 <EditText
+                    android:id="@+id/credMinAnnee"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
-                    android:id="@+id/credMinAnnee"
                     android:layout_column="5"
-                    android:width="60dp" />
+                    android:layout_weight="1"
+                    android:width="60dp"
+                    android:ems="10"
+                    android:inputType="number" />
             </TableRow>
 
             <TableRow
@@ -109,57 +121,76 @@
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-
-                    android:text="credits semestriel minimum:"
                     android:id="@+id/textView14"
-                    android:width="140dp"
-                    android:textSize="@dimen/abc_text_size_medium_material"
+                    android:layout_width="match_parent"
 
+                    android:layout_height="wrap_content"
                     android:layout_span="5"
-                    android:maxLines="1" />
+                    android:layout_weight="1"
+                    android:width="140dp"
+
+                    android:maxLines="1"
+                    android:text="credits semestriel minimum:"
+                    android:textSize="@dimen/abc_text_size_medium_material" />
 
                 <EditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    android:ems="10"
                     android:id="@+id/credS1min"
-                    android:width="60dp"
-                    android:layout_column="5" />
-
-                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
+                    android:layout_column="5"
+                    android:layout_weight="1"
+                    android:width="60dp"
                     android:ems="10"
+                    android:inputType="number" />
+
+                <EditText
                     android:id="@+id/credS2min"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_column="6"
-                    android:width="60dp" />
+                    android:layout_weight="1"
+                    android:width="60dp"
+                    android:ems="10"
+                    android:inputType="number" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent"
+                android:baselineAligned="false">
 
                 <Button
-                    android:layout_width="wrap_content"
+                    android:id="@+id/buttoneditmodule"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="entrer les modules"
-                    android:id="@+id/button"
-                    android:width="130dp"
                     android:layout_span="7"
-                    android:maxLines="1" />
+                    android:layout_weight="1"
+                    android:width="130dp"
+                    android:maxLines="1"
+                    android:text="entrer les modules" />
 
             </TableRow>
 
+            <TableRow
+                android:id="@+id/listModules"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:visibility="gone">
+
+                <include
+                    layout="@layout/fragment_modules_list_view_container"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </TableRow>
+
             <Button
+                android:id="@+id/btnS"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/buttonSave"
-                android:id="@+id/btnS" />
+                android:text="@string/buttonSave" />
 
         </TableLayout>
 

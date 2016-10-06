@@ -9,12 +9,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TableRow;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 
-public class Customizer extends AppCompatActivity {
+import static android.view.View.VISIBLE;
 
-    private Button btnSave;
+public class Customizer extends AppCompatActivity {
+    private TableRow modulesList;
+    private Button btnSave, btnEditModules;
     private EditText specname,annee,nbrModulesS1,nbrModulesS2,credAnnuelMin,credS1min,credS2min;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +42,18 @@ public class Customizer extends AppCompatActivity {
         credAnnuelMin=(EditText)findViewById(R.id.credMinAnnee);
         credS1min=(EditText)findViewById(R.id.credS1min);
         credS2min=(EditText)findViewById(R.id.credS2min);
+
+        btnEditModules = (Button) findViewById(R.id.buttoneditmodule);
+        btnEditModules.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modulesList = (TableRow) findViewById(R.id.listModules);
+                modulesList.setVisibility(VISIBLE);
+
+
+            }
+        });
+
 
         btnSave = (Button) findViewById(R.id.btnS);
         btnSave.setOnClickListener(new View.OnClickListener() {
