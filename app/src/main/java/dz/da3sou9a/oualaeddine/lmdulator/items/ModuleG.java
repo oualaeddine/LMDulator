@@ -14,6 +14,14 @@ public class ModuleG {
         ModuleName = moduleName;
     }
 
+    public ModuleG(String moduleName, int coef, int defCred, boolean tdState, boolean tpState) {
+        this.coef = coef;
+        this.tdState = tdState;
+        this.tpState = tpState;
+        ModuleName = moduleName;
+        this.defCred = defCred;
+    }
+
     public ModuleG(boolean td, boolean tp, double cont, double tp1, double moy, double td1, int coef, int cred, int id, String moduleName) {
         this.tdState = td;
         this.tpState = tp;

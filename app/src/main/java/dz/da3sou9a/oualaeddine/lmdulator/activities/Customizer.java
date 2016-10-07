@@ -39,9 +39,9 @@ public class Customizer extends AppCompatActivity {
         ModuleG module2 = new ModuleG("module2");
         ModuleG module3 = new ModuleG("module3");
 
-        modules.add(module1);
+        modules.add(0, module1);
+        modules.add(1, module3);
         modules.add(module2);
-        modules.add(module3);
 
         ModulesListViewAdapter moduleAdapter = new ModulesListViewAdapter(modules);
         ListView modulesListView = (ListView) findViewById(R.id.listViewModules);
