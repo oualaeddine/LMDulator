@@ -45,11 +45,6 @@
             android:name=".activities.Launcher"
             android:label="@string/title_activity_launcher"
             android:theme="@style/AppTheme"></activity>
-        <activity
-            android:name=".activities.frags.ModulesListView"
-            android:label="@string/title_activity_login">
-
-        </activity>
 
     </application>
 

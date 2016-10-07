@@ -6,12 +6,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TableRow;
+import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 
 import static android.view.View.VISIBLE;
 
@@ -23,6 +31,23 @@ public class Customizer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customizer);
+
+
+        ArrayList<ModuleG> modules = new ArrayList<ModuleG>();
+
+        ModuleG module1 = new ModuleG("module1");
+        ModuleG module2 = new ModuleG("module2");
+        ModuleG module3 = new ModuleG("module3");
+
+        modules.add(module1);
+        modules.add(module2);
+        modules.add(module3);
+
+        ModulesListViewAdapter moduleAdapter = new ModulesListViewAdapter(modules);
+        ListView modulesListView = (ListView) findViewById(R.id.listViewModules);
+        modulesListView.setAdapter(moduleAdapter);
+
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -47,10 +72,10 @@ public class Customizer extends AppCompatActivity {
         btnEditModules.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 modulesList = (TableRow) findViewById(R.id.listModules);
                 modulesList.setVisibility(VISIBLE);
-
-
             }
         });
 
@@ -79,5 +104,41 @@ public class Customizer extends AppCompatActivity {
 
     }
 
+    class ModulesListViewAdapter extends BaseAdapter {
 
+        ArrayList<ModuleG> moduleGItemsArrayList = new ArrayList<ModuleG>();
+
+        public ModulesListViewAdapter(ArrayList<ModuleG> moduleGItemsArrayList) {
+            this.moduleGItemsArrayList = moduleGItemsArrayList;
+        }
+
+        @Override
+        public int getCount() {
+
+            return moduleGItemsArrayList.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return moduleGItemsArrayList.get(position).getModuleName();
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            LayoutInflater inflater = getLayoutInflater();
+
+            View view1 = inflater.inflate(R.layout.modules_listview_item, null);
+
+            TextView moduleName = (TextView) view1.findViewById(R.id.content);
+
+            moduleName.setText(moduleGItemsArrayList.get(i).getModuleName());
+
+            return view1;
+        }
+    }
 }

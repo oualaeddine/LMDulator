@@ -179,7 +179,7 @@
                 android:visibility="gone">
 
                 <include
-                    layout="@layout/fragment_modules_list_view_container"
+                    layout="@layout/modules_list_view_container"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1" />

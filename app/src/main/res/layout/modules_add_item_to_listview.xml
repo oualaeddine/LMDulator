@@ -11,12 +11,17 @@
         android:layout_height="wrap_content"
         app:srcCompat="@android:drawable/ic_input_add" />
 
-    <TextView
+    <EditText
         android:id="@+id/content"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:layout_weight="1"
+        android:hint="Module Name"
+        android:inputType=""
+        android:selectAllOnFocus="false"
+        android:singleLine="true"
+        android:textAlignment="center"
         android:textAppearance="?attr/textAppearanceListItem" />
 
     <ImageButton
