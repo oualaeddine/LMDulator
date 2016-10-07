@@ -34,6 +34,7 @@ public class ModulesTableManager extends dbManager{
         unit_id = "unit_id",
         userId="id",
         year_id="year_id",
+            coef = "coef",
 
     //create NotesTab
     create_Note_Table = "create table "+notes_Table_Name+" ("+
@@ -44,6 +45,7 @@ public class ModulesTableManager extends dbManager{
         is_tp_true+" INT NOT NULL, "+
         unit_id+" INT NOT NULL, "+
         note_td+" REAL, "+
+            coef + " INT NOT NULL, " +
         note_tp+" REAL, "+
         note_controle+" REAL, "+
         cred_default+" INT NOT NULL, "+
@@ -57,9 +59,14 @@ public class ModulesTableManager extends dbManager{
         super(pContext);
     }
 
+    public static String getCreate_Note_Table() {
+        return create_Note_Table;
+    }
+
     public void dropModuleTable(SQLiteDatabase db) {
         db.execSQL(module_Table_Drop);
     }
+
     public void addModule(ModuleG module, User user) {
         open();
         ContentValues value = new ContentValues();
@@ -75,6 +82,7 @@ public class ModulesTableManager extends dbManager{
             value.put(note_controle, module.getCont());
             value.put(module_cred, module.getCred());
             value.put(module_moy, module.getMoy());
+        value.put(coef, module.getCoef());
         mDb.insert(notes_Table_Name, null, value);
         close();
     }
@@ -98,7 +106,8 @@ public class ModulesTableManager extends dbManager{
         mDb.update(notes_Table_Name, value, module_id  + " = ?", new String[] {String.valueOf(module.getId())});
         close();
     }
-        /**TODO: fill the moethod**/
+
+    /**TODO: fill the moethod**/
 
     public void getModules(int year_id)
     {
@@ -111,8 +120,4 @@ public class ModulesTableManager extends dbManager{
         cursor.close();
         close();
       }
-
-    public static String getCreate_Note_Table() {
-        return create_Note_Table;
-    }
 }

@@ -19,7 +19,9 @@ public class DbHandler extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         createTables(db);
+
     }
 
     @Override
@@ -28,11 +30,11 @@ public class DbHandler extends SQLiteOpenHelper{
     }
 
     public void createTables (SQLiteDatabase db) {
-       // db.execSQL(ModulesTableManager.getCreate_Note_Table());
-       //db.execSQL(GenTableManager.getCreate_Gen_Table());
-//      db.execSQL(UnitsTableManager.getCreate_Units_Table());
+        db.execSQL(ModulesTableManager.getCreate_Note_Table());
+        db.execSQL(GenTableManager.getCreate_Gen_Table());
+        db.execSQL(UnitsTableManager.getCreate_Units_Table());
         db.execSQL(UsersTableManager.getCreate_Users_Table());
-       // db.execSQL(YearTableManager.getCreate_Year_Table());
+        db.execSQL(YearTableManager.getCreate_Year_Table());
     }
     public SQLiteDatabase open() {
        SQLiteDatabase mdb = this.getWritableDatabase();

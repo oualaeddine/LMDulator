@@ -20,6 +20,7 @@ public class ModuleG {
         this.tpState = tpState;
         ModuleName = moduleName;
         this.defCred = defCred;
+        cont = Tp = Td = Moy = 0;
     }
 
     public ModuleG(boolean td, boolean tp, double cont, double tp1, double moy, double td1, int coef, int cred, int id, String moduleName) {
