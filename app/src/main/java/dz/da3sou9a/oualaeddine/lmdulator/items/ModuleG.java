@@ -1,5 +1,7 @@
 package dz.da3sou9a.oualaeddine.lmdulator.items;
 
+import dz.da3sou9a.oualaeddine.lmdulator.R;
+
 public class ModuleG {
     //Attributes
 	private boolean tpState,tdState,creditState;
@@ -8,6 +10,7 @@ public class ModuleG {
 	private int cred;
 	private int id,defCred;
 	private String ModuleName;
+    private int icon = R.id.moduleImg;
     //Constructors
 
     public ModuleG(String moduleName) {
@@ -128,5 +131,13 @@ public class ModuleG {
 
     public int getDefCred() {
         return defCred;
+    }
+
+    public int getIcon() {
+        return icon;
+    }
+
+    public void setIcon(int icon) {
+        this.icon = icon;
     }
 }

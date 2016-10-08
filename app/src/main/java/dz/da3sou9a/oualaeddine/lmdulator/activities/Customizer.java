@@ -5,21 +5,17 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TableRow;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
-import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListAdapter;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListContent;
 
 import static android.view.View.VISIBLE;
 
@@ -32,7 +28,7 @@ public class Customizer extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customizer);
 
-
+/**
         ArrayList<ModuleG> modules = new ArrayList<ModuleG>();
 
         ModuleG module1 = new ModuleG("module1");
@@ -42,10 +38,36 @@ public class Customizer extends AppCompatActivity {
         modules.add(0, module1);
         modules.add(1, module3);
         modules.add(module2);
+ Log.e("after filling the list", String.valueOf(modules.size()));
 
         ModulesListViewAdapter moduleAdapter = new ModulesListViewAdapter(modules);
         ListView modulesListView = (ListView) findViewById(R.id.listViewModules);
         modulesListView.setAdapter(moduleAdapter);
+
+ LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 55*modules.size());
+ modulesListView.setLayoutParams(layoutParams);
+
+ View lisContainer = findViewById(R.id.linearLayoutListContainer);
+
+ LinearLayout.LayoutParams layoutParamsContainer = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 55*(modules.size()+1));
+ lisContainer.setLayoutParams(layoutParamsContainer);
+ **/
+
+
+        /**  Using RecyclerView **/
+
+        RecyclerView recyclerView;
+        ModulesListAdapter modulesListAdapter;
+
+        recyclerView = (RecyclerView) findViewById(R.id.modules_list_rec);
+        //LayoutManager LinearLayoutManager
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(), this);
+        recyclerView.setAdapter(modulesListAdapter);
+
+
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -75,7 +97,11 @@ public class Customizer extends AppCompatActivity {
 
 
                 modulesList = (TableRow) findViewById(R.id.listModules);
-                modulesList.setVisibility(VISIBLE);
+                if (modulesList.getVisibility() == VISIBLE) {
+                    modulesList.setVisibility(View.GONE);
+                } else {
+                    modulesList.setVisibility(VISIBLE);
+                }
             }
         });
 
@@ -104,12 +130,14 @@ public class Customizer extends AppCompatActivity {
 
     }
 
-    class ModulesListViewAdapter extends BaseAdapter {
+    /**  class ModulesListViewAdapter extends BaseAdapter {
 
         ArrayList<ModuleG> moduleGItemsArrayList = new ArrayList<ModuleG>();
 
         public ModulesListViewAdapter(ArrayList<ModuleG> moduleGItemsArrayList) {
             this.moduleGItemsArrayList = moduleGItemsArrayList;
+     Log.e("Adapter constructor", String.valueOf(this.moduleGItemsArrayList.size()));
+
         }
 
         @Override
@@ -140,5 +168,5 @@ public class Customizer extends AppCompatActivity {
 
             return view1;
         }
-    }
+        }**/
 }

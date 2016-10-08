@@ -4,13 +4,14 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+        android:id="@+id/linearLayoutListContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:ignore="UselessParent">
 
         <include
-            layout="@layout/modules_listview"
+            layout="@layout/recycler_view_modules_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
