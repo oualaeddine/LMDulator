@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,10 +15,19 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableRow;
 
+import java.io.Serializable;
+import java.util.List;
+
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.frags.ModuleCustomizePopup;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListAdapter;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListContent;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.unitsList.UnitsListAdapter;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.unitsList.UnitsListContent;
+import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
+import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
+import dz.da3sou9a.oualaeddine.lmdulator.items.Unit;
 
 import static android.view.View.VISIBLE;
 
@@ -29,31 +39,6 @@ public class Customizer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customizer);
-
-/**
-        ArrayList<ModuleG> modules = new ArrayList<ModuleG>();
-
-        ModuleG module1 = new ModuleG("module1");
-        ModuleG module2 = new ModuleG("module2");
-        ModuleG module3 = new ModuleG("module3");
-
-        modules.add(0, module1);
-        modules.add(1, module3);
-        modules.add(module2);
- Log.e("after filling the list", String.valueOf(modules.size()));
-
-        ModulesListViewAdapter moduleAdapter = new ModulesListViewAdapter(modules);
-        ListView modulesListView = (ListView) findViewById(R.id.listViewModules);
-        modulesListView.setAdapter(moduleAdapter);
-
- LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 55*modules.size());
- modulesListView.setLayoutParams(layoutParams);
-
- View lisContainer = findViewById(R.id.linearLayoutListContainer);
-
- LinearLayout.LayoutParams layoutParamsContainer = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, 55*(modules.size()+1));
- lisContainer.setLayoutParams(layoutParamsContainer);
- **/
 
 
         /**  Using RecyclerView **/
@@ -67,6 +52,17 @@ public class Customizer extends AppCompatActivity {
 
         modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(), this);
         recyclerView.setAdapter(modulesListAdapter);
+
+
+        RecyclerView recyclerViewUnit;
+        final UnitsListAdapter unitsListAdapter;
+
+        recyclerViewUnit = (RecyclerView) findViewById(R.id.units_list_rec);
+        //LayoutManager LinearLayoutManager
+        recyclerViewUnit.setLayoutManager(new LinearLayoutManager(this));
+
+        unitsListAdapter = new UnitsListAdapter(UnitsListContent.getUnitsList(), this);
+        recyclerViewUnit.setAdapter(unitsListAdapter);
 
 
 
@@ -88,9 +84,6 @@ public class Customizer extends AppCompatActivity {
         specname=(EditText)findViewById(R.id.SpecName);
         annee=(EditText)findViewById(R.id.textAnnee);
 
-        credAnnuelMin=(EditText)findViewById(R.id.credMinAnnee);
-        credS1min=(EditText)findViewById(R.id.credS1min);
-        credS2min=(EditText)findViewById(R.id.credS2min);
 
         btnEditModules = (Button) findViewById(R.id.buttoneditmodule);
         btnEditModules.setOnClickListener(new View.OnClickListener() {
@@ -113,18 +106,21 @@ public class Customizer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentNotes = new Intent(Customizer.this, Launcher.class);
-                //       Semestre s1,s2;Annee year;
-                //        s1=new Semestre(1);
-                //        s2=new Semestre(2);
+                Semestre s1, s2;
+                Annee year;
+                List<ModuleG> moduleGList;
+                List<Unit> unitList;
 
-//                s1.setSemesterCred(Integer.parseInt(credS1min.getText().toString()));
-                //          s2.setSemesterCred(Integer.parseInt(credS2min.getText().toString()));
+                for (Object modules : modulesListAdapter.listData) {
 
-                //         year = new Annee(annee.getText().toString(),s1,s2);
-                //         year.setCred(Integer.parseInt(credAnnuelMin.getText().toString()));
+                }
 
-                //          intentNotes.putExtra("year", (Serializable) year);
 
+                s1 = new Semestre(1);
+                s2 = new Semestre(2);
+                year = new Annee(annee.getText().toString(), s1, s2);
+
+                intentNotes.putExtra("year", (Serializable) year);
                 startActivity(intentNotes);
             }
         });
@@ -140,49 +136,12 @@ public class Customizer extends AppCompatActivity {
 
                 modulesListAdapter.listData.add(newModule);
                 modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
+                FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
+                ModuleCustomizePopup popup = new ModuleCustomizePopup();
+                popup.show(manager, null);
 
             }
         });
     }
 
-
-    /**  class ModulesListViewAdapter extends BaseAdapter {
-
-        ArrayList<ModuleG> moduleGItemsArrayList = new ArrayList<ModuleG>();
-
-        public ModulesListViewAdapter(ArrayList<ModuleG> moduleGItemsArrayList) {
-            this.moduleGItemsArrayList = moduleGItemsArrayList;
-     Log.e("Adapter constructor", String.valueOf(this.moduleGItemsArrayList.size()));
-
-        }
-
-        @Override
-        public int getCount() {
-
-            return moduleGItemsArrayList.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return moduleGItemsArrayList.get(position).getModuleName();
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            LayoutInflater inflater = getLayoutInflater();
-
-            View view1 = inflater.inflate(R.layout.modules_listview_item, null);
-
-            TextView moduleName = (TextView) view1.findViewById(R.id.content);
-
-            moduleName.setText(moduleGItemsArrayList.get(i).getModuleName());
-
-            return view1;
-        }
-        }**/
 }

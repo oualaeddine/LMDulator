@@ -89,69 +89,25 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1">
 
-                <TextView
-                    android:id="@+id/textView11"
-                    android:layout_width="match_parent"
-
+                <Button
+                    android:id="@+id/buttonEditUnits"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_column="0"
-                    android:layout_span="5"
                     android:layout_weight="1"
-                    android:width="130dp"
-
-                    android:maxLines="1"
-                    android:text="credits annuel minimum:"
-                    android:textSize="@dimen/abc_text_size_medium_material" />
-
-                <EditText
-                    android:id="@+id/credMinAnnee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_column="5"
-                    android:layout_weight="1"
-                    android:width="60dp"
-                    android:ems="10"
-                    android:inputType="number" />
+                    android:text="Button" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
-                <TextView
-                    android:id="@+id/textView14"
-                    android:layout_width="match_parent"
-
-                    android:layout_height="wrap_content"
-                    android:layout_span="5"
-                    android:layout_weight="1"
-                    android:width="140dp"
-
-                    android:maxLines="1"
-                    android:text="credits semestriel minimum:"
-                    android:textSize="@dimen/abc_text_size_medium_material" />
-
-                <EditText
-                    android:id="@+id/credS1min"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_column="5"
-                    android:layout_weight="1"
-                    android:width="60dp"
-                    android:ems="10"
-                    android:inputType="number" />
-
-                <EditText
-                    android:id="@+id/credS2min"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_column="6"
-                    android:layout_weight="1"
-                    android:width="60dp"
-                    android:ems="10"
-                    android:inputType="number" />
+                <include
+                    layout="@layout/units_list_container"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
             </TableRow>
 
             <TableRow
@@ -191,7 +147,7 @@
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/buttonSave" />
+                android:text="save" />
 
         </TableLayout>
 

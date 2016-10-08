@@ -46,11 +46,4 @@ public class ModulesListAdapter extends RecyclerView.Adapter<ModulesHolder> {
         return listData.size();
     }
 
-
-    /**  //this method adds object to recyclerview
-     public void addModule(ModuleG moduleG){
-     listData.add(moduleG);
-     int position = listData.size()-1;
-     notifyItemInserted(position);
-     }**/
 }
