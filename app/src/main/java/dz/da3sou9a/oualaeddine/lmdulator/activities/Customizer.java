@@ -11,11 +11,13 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TableRow;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListAdapter;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListContent;
+import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 
 import static android.view.View.VISIBLE;
 
@@ -57,7 +59,7 @@ public class Customizer extends AppCompatActivity {
         /**  Using RecyclerView **/
 
         RecyclerView recyclerView;
-        ModulesListAdapter modulesListAdapter;
+        final ModulesListAdapter modulesListAdapter;
 
         recyclerView = (RecyclerView) findViewById(R.id.modules_list_rec);
         //LayoutManager LinearLayoutManager
@@ -128,7 +130,21 @@ public class Customizer extends AppCompatActivity {
         });
 
 
+        final EditText content = (EditText) findViewById(R.id.content);
+        final ImageButton addModule = (ImageButton) findViewById(R.id.imageButtonAddModule);
+
+        addModule.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ModuleG newModule = new ModuleG(content.getText().toString());
+
+                modulesListAdapter.listData.add(newModule);
+                modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
+
+            }
+        });
     }
+
 
     /**  class ModulesListViewAdapter extends BaseAdapter {
 

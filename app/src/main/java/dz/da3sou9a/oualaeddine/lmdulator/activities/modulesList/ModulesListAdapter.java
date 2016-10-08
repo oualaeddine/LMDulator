@@ -18,7 +18,7 @@ import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 public class ModulesListAdapter extends RecyclerView.Adapter<ModulesHolder> {
 
 
-    private List<ModuleG> listData;
+    public List<ModuleG> listData;
     private LayoutInflater inflater;
 
 
@@ -45,4 +45,12 @@ public class ModulesListAdapter extends RecyclerView.Adapter<ModulesHolder> {
     public int getItemCount() {
         return listData.size();
     }
+
+
+    /**  //this method adds object to recyclerview
+     public void addModule(ModuleG moduleG){
+     listData.add(moduleG);
+     int position = listData.size()-1;
+     notifyItemInserted(position);
+     }**/
 }
