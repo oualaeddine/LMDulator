@@ -31,7 +31,6 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_span="3"
-                    android:layout_weight="1"
                     android:width="90dp"
                     android:maxLines="1"
                     android:text="Nom de la specialité:"
@@ -46,12 +45,13 @@
                     android:layout_span="5"
                     android:layout_weight="1"
                     android:width="120dp"
+                    android:hint="Science Technique.."
                     android:inputType="text" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="match_parent">
 
                 <TextView
                     android:id="@+id/textView4"
@@ -63,12 +63,6 @@
                     android:text="Année:"
                     android:textSize="@dimen/abc_text_size_medium_material" />
 
-                <Space
-                    android:layout_width="60dp"
-                    android:layout_height="20dp"
-                    android:layout_column="4"
-                    android:layout_weight="1" />
-
                 <EditText
                     android:id="@+id/textAnnee"
                     android:layout_width="match_parent"
@@ -77,37 +71,40 @@
                     android:layout_weight="1"
                     android:width="60dp"
                     android:ems="10"
+                    android:hint="L1,L2,L3,M1,M2"
                     android:inputType="number" />
 
-                <Space
-                    android:layout_width="60dp"
-                    android:layout_height="20dp"
-                    android:layout_column="6"
-                    android:layout_weight="1" />
-
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1">
-
-                <Button
-                    android:id="@+id/buttonEditUnits"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Button" />
             </TableRow>
 
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <include
-                    layout="@layout/units_list_container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Nombre d'unites par semestre" />
+
+                <EditText
+                    android:id="@+id/editText2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="S1"
+                    android:inputType="number" />
+
+                <EditText
+                    android:id="@+id/editText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="S2"
+                    android:inputType="number" />
+
             </TableRow>
 
             <TableRow

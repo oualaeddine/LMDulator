@@ -15,15 +15,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableRow;
 
-import java.io.Serializable;
 import java.util.List;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.frags.ModuleCustomizePopup;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListAdapter;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListContent;
-import dz.da3sou9a.oualaeddine.lmdulator.activities.unitsList.UnitsListAdapter;
-import dz.da3sou9a.oualaeddine.lmdulator.activities.unitsList.UnitsListContent;
 import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
@@ -54,15 +51,15 @@ public class Customizer extends AppCompatActivity {
         recyclerView.setAdapter(modulesListAdapter);
 
 
-        RecyclerView recyclerViewUnit;
-        final UnitsListAdapter unitsListAdapter;
+        //       RecyclerView recyclerViewUnit;
+        //       final UnitsListAdapter unitsListAdapter;
 
-        recyclerViewUnit = (RecyclerView) findViewById(R.id.units_list_rec);
+        //      recyclerViewUnit = (RecyclerView) findViewById(R.id.units_list_rec);
         //LayoutManager LinearLayoutManager
-        recyclerViewUnit.setLayoutManager(new LinearLayoutManager(this));
+//        recyclerViewUnit.setLayoutManager(new LinearLayoutManager(this));
 
-        unitsListAdapter = new UnitsListAdapter(UnitsListContent.getUnitsList(), this);
-        recyclerViewUnit.setAdapter(unitsListAdapter);
+        //      unitsListAdapter = new UnitsListAdapter(UnitsListContent.getUnitsList(), this);
+        //      recyclerViewUnit.setAdapter(unitsListAdapter);
 
 
 
@@ -120,7 +117,7 @@ public class Customizer extends AppCompatActivity {
                 s2 = new Semestre(2);
                 year = new Annee(annee.getText().toString(), s1, s2);
 
-                intentNotes.putExtra("year", (Serializable) year);
+                // intentNotes.putExtra("year", (Serializable) year);
                 startActivity(intentNotes);
             }
         });
