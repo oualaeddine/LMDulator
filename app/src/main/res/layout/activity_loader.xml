@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0099cc"
+
     tools:context="dz.da3sou9a.oualaeddine.lmdulator.activities.Loader">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
