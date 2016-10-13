@@ -1,5 +1,6 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import dz.da3sou9a.oualaeddine.lmdulator.db.ModulesTableManager;
@@ -12,7 +13,7 @@ import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 public class ModulesListContent {
 
     public static List<ModuleG> getModulesList(ModulesTableManager db, int userId, int yearId) {
-        List<ModuleG> data;
+        List<ModuleG> data = new LinkedList<>();
         db.open();
 
         //debugger
@@ -32,12 +33,54 @@ public class ModulesListContent {
         module5.setYearId(yearId);
         module6.setYearId(yearId);
 
-        module1.setYearId(userId);
-        module2.setYearId(userId);
-        module3.setYearId(userId);
-        module4.setYearId(userId);
-        module5.setYearId(userId);
-        module6.setYearId(userId);
+        module1.setUserId(userId);
+        module2.setUserId(userId);
+        module3.setUserId(userId);
+        module4.setUserId(userId);
+        module5.setUserId(userId);
+        module6.setUserId(userId);
+
+        module1.setCoef(2);
+        module2.setCoef(2);
+        module3.setCoef(2);
+        module4.setCoef(2);
+        module5.setCoef(2);
+        module6.setCoef(2);
+
+        module1.setTdState(true);
+        module2.setTdState(true);
+        module3.setTdState(true);
+        module4.setTdState(true);
+        module5.setTdState(true);
+        module6.setTdState(true);
+
+        module1.setTpState(true);
+        module2.setTpState(true);
+        module3.setTpState(true);
+        module4.setTpState(true);
+        module5.setTpState(true);
+        module6.setTpState(true);
+
+        module1.setSemester(2);
+        module2.setSemester(2);
+        module3.setSemester(2);
+        module4.setSemester(2);
+        module5.setSemester(2);
+        module6.setSemester(2);
+
+        module1.setUnitId(2);
+        module2.setUnitId(2);
+        module3.setUnitId(2);
+        module4.setUnitId(2);
+        module5.setUnitId(2);
+        module6.setUnitId(2);
+
+        module1.setDefCred(2);
+        module2.setDefCred(2);
+        module3.setDefCred(2);
+        module4.setDefCred(2);
+        module5.setDefCred(2);
+        module6.setDefCred(2);
 
         db.addModule(module1);
         db.addModule(module2);
@@ -45,6 +88,8 @@ public class ModulesListContent {
         db.addModule(module4);
         db.addModule(module5);
         db.addModule(module6);
+
+
 /**
         Unit unit = new Unit("unit1");
 
@@ -64,7 +109,6 @@ public class ModulesListContent {
             }
         }
  **/
-
         data = db.getModules(userId, yearId);
         return data;
     }

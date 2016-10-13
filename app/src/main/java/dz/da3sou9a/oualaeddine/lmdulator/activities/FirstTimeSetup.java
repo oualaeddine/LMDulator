@@ -57,4 +57,8 @@ public class FirstTimeSetup extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+    }
 }

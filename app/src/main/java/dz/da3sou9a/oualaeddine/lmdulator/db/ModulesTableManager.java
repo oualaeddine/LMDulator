@@ -75,13 +75,24 @@ public class ModulesTableManager extends dbManager{
         value.put(year_id, module.getYearId());
         value.put(unit_id, module.getUnitId());
         value.put(semester, module.getSemester());
-            value.put(module_name, module.getModuleName());
+        value.put(module_name, module.getModuleName());
         value.put(cred_default, module.getDefCred());
-            value.put(is_td_true, module.isTpState());
-            value.put(is_tp_true, module.isTdState());
+        value.put(coef, module.getCoef());
+        boolean is_tp = module.isTpState();
+        if (is_tp) {
+            value.put(is_tp_true, 1);
+        } else {
+            value.put(is_tp_true, 0);
+        }
+        boolean is_td = module.isTdState();
+        if (is_td) {
+            value.put(is_td_true, 1);
+        } else {
+            value.put(is_td_true, 0);
+        }
         value.put(note_td, module.getTd());
-            value.put(note_tp, module.getTp());
-            value.put(note_controle, module.getCont());
+        value.put(note_tp, module.getTp());
+        value.put(note_controle, module.getCont());
         mDb.insert(notes_Table_Name, null, value);
         close();
     }
@@ -127,16 +138,13 @@ public class ModulesTableManager extends dbManager{
             int _year_id = Integer.valueOf(cursor.getString(cursor.getColumnIndex(year_id)));
             int _coef = Integer.valueOf(cursor.getString(cursor.getColumnIndex(coef)));
             int _cred_def = Integer.valueOf(cursor.getString(cursor.getColumnIndex(cred_default)));
-            int _credState = Integer.valueOf(cursor.getString(cursor.getColumnIndex(module_cred)));
-            _cred = _credState == 1;
             int _module_id = Integer.valueOf(cursor.getString(cursor.getColumnIndex(module_id)));
 
             double _note_tp = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_tp)));
             double _note_td = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_td)));
             double _note_controle = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_controle)));
-            double _module_moy = Double.parseDouble(cursor.getString(cursor.getColumnIndex(module_moy)));
 
-            ModuleG newModule = new ModuleG(_is_tp_true, _is_td_true, _cred, _note_controle, _note_tp, _module_moy, _note_td, _coef, _userId, _unit_id, _year_id, _semester, _module_id, _cred_def, _moduleName);
+            ModuleG newModule = new ModuleG(_is_tp_true, _is_td_true, _note_controle, _note_tp, _note_td, _coef, _userId, _unit_id, _year_id, _semester, _module_id, _cred_def, _moduleName);
 
             modulesList.add(newModule);
         }

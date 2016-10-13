@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListAdapter;
 import dz.da3sou9a.oualaeddine.lmdulator.db.ModulesTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 
@@ -23,7 +24,7 @@ public class ModuleCustomizePopup extends DialogFragment implements View.OnClick
 
     View view;
     ModuleG newModule;
-
+    ModulesListAdapter modulesListAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +65,8 @@ public class ModuleCustomizePopup extends DialogFragment implements View.OnClick
                     ModulesTableManager db = new ModulesTableManager(getContext());
                     db.open();
                     db.addModule(newModule);
+                    modulesListAdapter.listData.add(newModule);
+                    modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size());
                     dismiss();
                 }
             }
@@ -83,7 +86,8 @@ public class ModuleCustomizePopup extends DialogFragment implements View.OnClick
 
     }
 
-    public void setModule(ModuleG module) {
+    public void setModule(ModuleG module, ModulesListAdapter modulesListAdapter) {
+        this.modulesListAdapter = modulesListAdapter;
         newModule = module;
     }
 

@@ -39,13 +39,12 @@ public class ModuleG {
         ModuleName = moduleName;
     }
 
-    public ModuleG(boolean tpState, boolean tdState, boolean creditState, double cont, double tp, double moy, double td, int coef, int userId, int unitId, int yearId, int semester, int id, int defCred, String moduleName) {
+    public ModuleG(boolean tpState, boolean tdState, double cont, double tp, double td, int coef, int userId, int unitId, int yearId, int semester, int id, int defCred, String moduleName) {
         this.tpState = tpState;
         this.tdState = tdState;
         this.creditState = creditState;
         this.cont = cont;
         Tp = tp;
-        Moy = moy;
         Td = td;
         this.coef = coef;
         this.userId = userId;

@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -42,7 +43,7 @@ public class Customizer extends AppCompatActivity {
         final ModulesListAdapter modulesListAdapter;
 
         SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-        final int loggedUserId = preferences.getInt("userId", 99);
+        int loggedUserId = preferences.getInt("userId", 1);
         String loggedUserName = preferences.getString("userName", "noUser");
         int currentYear = 1;
         Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
@@ -53,7 +54,8 @@ public class Customizer extends AppCompatActivity {
         ModulesTableManager db = new ModulesTableManager(this);
         modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(db, loggedUserId, currentYear), this);
         recyclerView.setAdapter(modulesListAdapter);
-
+        modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size());
+        Log.e("list data recycler size", String.valueOf(modulesListAdapter.listData.size()));
         /** end using recyclerView**/
         /**
          final int loggedUserId = (int) getIntent().getSerializableExtra("loggedUserId");
@@ -83,7 +85,6 @@ public class Customizer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
                 modulesList = (TableRow) findViewById(R.id.listModules);
                 if (modulesList.getVisibility() == VISIBLE) {
                     modulesList.setVisibility(View.GONE);
@@ -103,8 +104,6 @@ public class Customizer extends AppCompatActivity {
  intentNotes.putExtra("loggedUserName", loggedUserName);
  **/
                 startActivity(intentNotes);
-
-
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
@@ -116,15 +115,22 @@ public class Customizer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ModuleG newModule = new ModuleG(content.getText().toString());
-                newModule.setUserId(loggedUserId);
+                //newModule.setUserId(loggedUserId);
+                newModule.setUserId(1);
                 //modulesListAdapter.listData.add(newModule);
                 //modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
                 FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
                 ModuleCustomizePopup popup = new ModuleCustomizePopup();
-                popup.setModule(newModule);
+                popup.setModule(newModule, modulesListAdapter);
                 popup.show(manager, null);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        moveTaskToBack(true);
+        finish();
     }
 /**
  public void addModuleToRecycler(ModuleG module) {
