@@ -1,11 +1,9 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import dz.da3sou9a.oualaeddine.lmdulator.db.ModulesTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Unit;
 
 /**
  * Created by Ouala eddine on 08/10/2016.
@@ -13,14 +11,13 @@ import dz.da3sou9a.oualaeddine.lmdulator.items.Unit;
 
 public class ModulesListContent {
 
-    private ArrayList<ModuleG> modules = new ArrayList<ModuleG>();
-
-
-    public static List<ModuleG> getModulesList(/**Semestre semester**/) {
-        List<ModuleG> data = new ArrayList<>();
+    public static List<ModuleG> getModulesList(ModulesTableManager db, int userId, int yearId) {
+        List<ModuleG> data;
+        db.open();
 
         //debugger
-        Semestre semester = new Semestre("semester1");
+        //Semestre semester = new Semestre("semester1");
+
         ModuleG module1 = new ModuleG("module1");
         ModuleG module2 = new ModuleG("module2");
         ModuleG module3 = new ModuleG("module3");
@@ -28,6 +25,27 @@ public class ModulesListContent {
         ModuleG module5 = new ModuleG("module5");
         ModuleG module6 = new ModuleG("module6");
 
+        module1.setYearId(yearId);
+        module2.setYearId(yearId);
+        module3.setYearId(yearId);
+        module4.setYearId(yearId);
+        module5.setYearId(yearId);
+        module6.setYearId(yearId);
+
+        module1.setYearId(userId);
+        module2.setYearId(userId);
+        module3.setYearId(userId);
+        module4.setYearId(userId);
+        module5.setYearId(userId);
+        module6.setYearId(userId);
+
+        db.addModule(module1);
+        db.addModule(module2);
+        db.addModule(module3);
+        db.addModule(module4);
+        db.addModule(module5);
+        db.addModule(module6);
+/**
         Unit unit = new Unit("unit1");
 
         unit.addModule(module1);
@@ -45,7 +63,9 @@ public class ModulesListContent {
                 data.add((ModuleG) modules);
             }
         }
+ **/
 
+        data = db.getModules(userId, yearId);
         return data;
     }
 

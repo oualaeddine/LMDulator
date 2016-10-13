@@ -1,7 +1,9 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities.login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.Serializable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -23,7 +23,6 @@ import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 public class LoginActivity extends AppCompatActivity {
     private static final String TAG = "LoginActivity";
     private static final int REQUEST_SIGNUP = 0;
-
     @Bind(R.id.input_email)
     EditText _emailText;
     @Bind(R.id.input_password)
@@ -32,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     Button _loginButton;
     @Bind(R.id.link_signup)
     TextView _signupLink;
+    private SharedPreferences preferences;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,13 +118,22 @@ public class LoginActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), Launcher.class);
 
-        intent.putExtra("loggedUserName", (Serializable) loggedUser.getUserName());
+//        intent.putExtra("loggedUserName", (Serializable) loggedUser.getUserName());
+
         UsersTableManager usersTableManager = new UsersTableManager(getApplicationContext());
         usersTableManager.open();
         String email = _emailText.getText().toString();
-
         int userId = usersTableManager.getUserIdByName(email);
-        intent.putExtra("userId", userId);
+        Log.e("o", String.valueOf(userId));
+        //  intent.putExtra("userId", userId);
+
+        /** implement SharedPreferences**/
+
+        preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = preferences.edit();
+        prefEditor.putInt("userID", userId);
+        prefEditor.putString("userName", loggedUser.getUserName());
+        prefEditor.commit();
 
         startActivity(intent);
 

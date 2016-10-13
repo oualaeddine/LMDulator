@@ -1,10 +1,13 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 
@@ -16,6 +19,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        int loggedUserId = preferences.getInt("userId", 99);
+        String loggedUserName = preferences.getString("userName", "noUser");
+        Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
 
         initL1();
     }

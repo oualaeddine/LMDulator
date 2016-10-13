@@ -3,6 +3,7 @@ package dz.da3sou9a.oualaeddine.lmdulator.db;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 /**
  * Created by Ouala eddine on 29/09/2016.
@@ -28,7 +29,13 @@ public class DbHandler extends SQLiteOpenHelper{
     }
 
     public void createTables (SQLiteDatabase db) {
-        //    db.execSQL(ModulesTableManager.getCreate_Note_Table());
+        try {
+            db.execSQL(ModulesTableManager.getCreate_Note_Table());
+        } catch (Exception e) {
+            Log.e("create modules tab", e.toString());
+            Log.e("create modules tab", e.getMessage());
+            Log.e("create modules tab", String.valueOf(e.getCause()));
+        }
         //    db.execSQL(GenTableManager.getCreate_Gen_Table());
 //        db.execSQL(UnitsTableManager.getCreate_Units_Table());
         db.execSQL(UsersTableManager.getCreate_Users_Table());

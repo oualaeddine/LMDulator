@@ -1,6 +1,8 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,16 +21,14 @@ public class FirstTimeSetup extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time_setup);
-        initL1();
 
-        int loggedUserId = (int) getIntent().getSerializableExtra("loggedUserId");
-        String loggedUserName = (String) getIntent().getSerializableExtra("loggedUserName");
-
+        //   final Serializable loggedUserId =  getIntent().getSerializableExtra("loggedUserId");
+        //  final Serializable loggedUserName =  getIntent().getSerializableExtra("loggedUserName");
+        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        int loggedUserId = preferences.getInt("userId", 99);
+        String loggedUserName = preferences.getString("userName", "noUser");
         Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
 
-    }
-
-    public void initL1() {
         Button butmias = (Button) findViewById(R.id.butmias);
         Button butautre = (Button) findViewById(R.id.butautre);
 
@@ -38,8 +38,8 @@ public class FirstTimeSetup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentl1 = new Intent(FirstTimeSetup.this, MainActivity.class);
-                intentl1.putExtra("userId", getIntent().getSerializableExtra("userId"));
-                intentl1.putExtra("loggedUserName", getIntent().getSerializableExtra("loggedUseName"));
+                //     intentl1.putExtra("userId", loggedUserId);
+                //    intentl1.putExtra("loggedUserName", loggedUserName);
                 startActivity(intentl1);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
@@ -49,12 +49,12 @@ public class FirstTimeSetup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentl2 = new Intent(FirstTimeSetup.this, Customizer.class);
-                intentl2.putExtra("userId", getIntent().getSerializableExtra("userId"));
-                intentl2.putExtra("loggedUserName", getIntent().getSerializableExtra("loggedUseName"));
+                //  intentl2.putExtra("userId", loggedUserId);
+                //intentl2.putExtra("loggedUserName", loggedUserName);
                 startActivity(intentl2);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-
     }
+
 }

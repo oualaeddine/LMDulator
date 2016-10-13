@@ -1,5 +1,7 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -14,7 +16,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -61,7 +62,7 @@ public class Launcher extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
+/**
         try {
             int loggedUserId = (int) getIntent().getSerializableExtra("userId");
             String loggedUserName = (String) getIntent().getSerializableExtra("loggedUserName");
@@ -71,7 +72,12 @@ public class Launcher extends AppCompatActivity
             Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
         } catch (NullPointerException e) {
             Toast.makeText(getBaseContext(), "enjoy!", Toast.LENGTH_LONG).show();
-        }
+ }**/
+
+        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        int loggedUserId = preferences.getInt("userId", 99);
+        String loggedUserName = preferences.getString("userName", "noUser");
+        Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.

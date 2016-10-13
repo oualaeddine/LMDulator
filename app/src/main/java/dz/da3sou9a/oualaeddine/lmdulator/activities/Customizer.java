@@ -1,6 +1,8 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -14,11 +16,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableRow;
+import android.widget.Toast;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.frags.ModuleCustomizePopup;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListAdapter;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListContent;
+import dz.da3sou9a.oualaeddine.lmdulator.db.ModulesTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 
 import static android.view.View.VISIBLE;
@@ -37,14 +41,24 @@ public class Customizer extends AppCompatActivity {
         RecyclerView recyclerView;
         final ModulesListAdapter modulesListAdapter;
 
+        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        final int loggedUserId = preferences.getInt("userId", 99);
+        String loggedUserName = preferences.getString("userName", "noUser");
+        int currentYear = 1;
+        Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
+
         recyclerView = (RecyclerView) findViewById(R.id.modules_list_rec);
         //LayoutManager LinearLayoutManager
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(), this);
+        ModulesTableManager db = new ModulesTableManager(this);
+        modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(db, loggedUserId, currentYear), this);
         recyclerView.setAdapter(modulesListAdapter);
 
         /** end using recyclerView**/
+        /**
+         final int loggedUserId = (int) getIntent().getSerializableExtra("loggedUserId");
+         final String loggedUserName = (String) getIntent().getSerializableExtra("loggedUserName");
+         **/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,11 +98,13 @@ public class Customizer extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentNotes = new Intent(Customizer.this, Launcher.class);
-
-                intentNotes.putExtra("userId", getIntent().getSerializableExtra("userId"));
-                intentNotes.putExtra("loggedUserName", getIntent().getSerializableExtra("loggedUseName"));
-
+/**
+ intentNotes.putExtra("userId", loggedUserId);
+ intentNotes.putExtra("loggedUserName", loggedUserName);
+ **/
                 startActivity(intentNotes);
+
+
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
@@ -100,16 +116,22 @@ public class Customizer extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ModuleG newModule = new ModuleG(content.getText().toString());
-
-                modulesListAdapter.listData.add(newModule);
-                modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
+                newModule.setUserId(loggedUserId);
+                //modulesListAdapter.listData.add(newModule);
+                //modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
                 FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
                 ModuleCustomizePopup popup = new ModuleCustomizePopup();
                 popup.setModule(newModule);
                 popup.show(manager, null);
-
             }
         });
     }
-
+/**
+ public void addModuleToRecycler(ModuleG module) {
+ ModulesListAdapter modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(), this);
+ modulesListAdapter.listData.add(module);
+ Log.e("e","inside addModuleToRecycler");
+ modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
+ }
+ **/
 }

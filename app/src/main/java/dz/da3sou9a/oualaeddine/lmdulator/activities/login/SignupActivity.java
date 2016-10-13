@@ -1,7 +1,9 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities.login;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -10,8 +12,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.Serializable;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -122,8 +122,11 @@ public class SignupActivity extends AppCompatActivity {
         int userId = db.getUserIdByName(newUser.getUserName());
         newUser.setUserId(userId);
         Intent intent = new Intent(getApplicationContext(), FirstTimeSetup.class);
-        intent.putExtra("loggedUserId", (Serializable) newUser.getUserId());
-        intent.putExtra("loggedUserName", (Serializable) newUser.getUserName());
+        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor prefEditor = preferences.edit();
+        prefEditor.putInt("userID", userId);
+        prefEditor.putString("userName", newUser.getUserName());
+        prefEditor.commit();
         startActivity(intent);
 
         finish();

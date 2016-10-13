@@ -96,7 +96,6 @@ public class UsersTableManager extends DbHandler{
 
     public int getUserIdByName(String user_name) {
         Cursor res = open().rawQuery("select * from " + users_Table_Name + " where " + userName + " = '" + user_name + "'", null);
-        res.close();
         res.moveToFirst();
         return parseInt(res.getString(res.getColumnIndex(userId)));
 

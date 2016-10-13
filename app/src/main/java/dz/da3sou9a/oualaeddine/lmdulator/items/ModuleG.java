@@ -5,10 +5,10 @@ import dz.da3sou9a.oualaeddine.lmdulator.R;
 public class ModuleG {
     //Attributes
 	private boolean tpState,tdState,creditState;
-	private double cont,Tp,Moy,Td;
-	private int coef;
-	private int cred;
-	private int id,defCred;
+    private double cont = 0, Tp = 0, Moy = 0, Td = 0;
+    private int coef, userId, unitId, yearId, semester;
+    private int cred = 0;
+    private int id,defCred;
 	private String ModuleName;
     private int icon = R.id.moduleImg;
     //Constructors
@@ -39,7 +39,27 @@ public class ModuleG {
         ModuleName = moduleName;
     }
 
-	//Getters and Setters
+    public ModuleG(boolean tpState, boolean tdState, boolean creditState, double cont, double tp, double moy, double td, int coef, int userId, int unitId, int yearId, int semester, int id, int defCred, String moduleName) {
+        this.tpState = tpState;
+        this.tdState = tdState;
+        this.creditState = creditState;
+        this.cont = cont;
+        Tp = tp;
+        Moy = moy;
+        Td = td;
+        this.coef = coef;
+        this.userId = userId;
+        this.unitId = unitId;
+        this.yearId = yearId;
+        this.semester = semester;
+        this.cred = cred;
+        this.id = id;
+        this.defCred = defCred;
+        ModuleName = moduleName;
+        //this.icon = icon;
+    }
+
+    //Getters and Setters
 
     public double getCont() {
         return cont;
@@ -133,11 +153,47 @@ public class ModuleG {
         return defCred;
     }
 
+    public void setDefCred(int defCred) {
+        this.defCred = defCred;
+    }
+
     public int getIcon() {
         return icon;
     }
 
     public void setIcon(int icon) {
         this.icon = icon;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getUnitId() {
+        return unitId;
+    }
+
+    public void setUnitId(int unitId) {
+        this.unitId = unitId;
+    }
+
+    public int getYearId() {
+        return yearId;
+    }
+
+    public void setYearId(int yearId) {
+        this.yearId = yearId;
+    }
+
+    public int getSemester() {
+        return semester;
+    }
+
+    public void setSemester(int semester) {
+        this.semester = semester;
     }
 }

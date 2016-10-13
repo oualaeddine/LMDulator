@@ -7,18 +7,25 @@
     android:orientation="vertical">
 
     <TableRow
+        android:id="@+id/containerModuleName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:baselineAligned="false">
 
-        <TextView
-            android:id="@+id/textView3"
+        <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="Module Name"
-            android:textAlignment="center"
-            android:textSize="24sp"
-            android:textStyle="normal|bold" />
+            android:layout_weight="1">
+
+            <EditText
+                android:id="@+id/editText2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:text="Name"
+                android:visibility="visible" />
+        </FrameLayout>
 
         <ImageButton
             android:id="@+id/imageButton2"
@@ -73,7 +80,7 @@
             android:text="TextView" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/cred"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -88,7 +95,7 @@
             android:text="TextView" />
 
         <EditText
-            android:id="@+id/editText4"
+            android:id="@+id/coef"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -102,7 +109,7 @@
         android:layout_height="wrap_content">
 
         <Switch
-            android:id="@+id/switch1"
+            android:id="@+id/isTp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -112,7 +119,7 @@
             android:textSize="24sp" />
 
         <Switch
-            android:id="@+id/switch2"
+            android:id="@+id/isTd"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
