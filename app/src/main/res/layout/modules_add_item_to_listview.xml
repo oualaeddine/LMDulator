@@ -5,16 +5,9 @@
     android:layout_height="wrap_content"
     android:baselineAligned="false">
 
-    <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        app:srcCompat="@android:drawable/ic_input_add" />
-
     <EditText
         android:id="@+id/content"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="@dimen/text_margin"
@@ -28,9 +21,10 @@
 
     <ImageButton
         android:id="@+id/imageButtonAddModule"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
+        android:layout_weight="4.59"
         app:srcCompat="@drawable/ic_menu_send" />
 
 </LinearLayout>

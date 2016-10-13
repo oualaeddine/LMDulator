@@ -15,28 +15,22 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TableRow;
 
-import java.util.List;
-
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.frags.ModuleCustomizePopup;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListAdapter;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListContent;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Unit;
 
 import static android.view.View.VISIBLE;
 
 public class Customizer extends AppCompatActivity {
     private TableRow modulesList;
     private Button btnSave, btnEditModules;
-    private EditText specname,annee,nbrModulesS1,nbrModulesS2,credAnnuelMin,credS1min,credS2min;
+    private EditText specname, annee, nbrUnitsS1, nbrUnitsS2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customizer);
-
 
         /**  Using RecyclerView **/
 
@@ -50,20 +44,7 @@ public class Customizer extends AppCompatActivity {
         modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(), this);
         recyclerView.setAdapter(modulesListAdapter);
 
-
-        //       RecyclerView recyclerViewUnit;
-        //       final UnitsListAdapter unitsListAdapter;
-
-        //      recyclerViewUnit = (RecyclerView) findViewById(R.id.units_list_rec);
-        //LayoutManager LinearLayoutManager
-//        recyclerViewUnit.setLayoutManager(new LinearLayoutManager(this));
-
-        //      unitsListAdapter = new UnitsListAdapter(UnitsListContent.getUnitsList(), this);
-        //      recyclerViewUnit.setAdapter(unitsListAdapter);
-
-
-
-
+        /** end using recyclerView**/
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -80,7 +61,8 @@ public class Customizer extends AppCompatActivity {
 
         specname=(EditText)findViewById(R.id.SpecName);
         annee=(EditText)findViewById(R.id.textAnnee);
-
+        nbrUnitsS1 = (EditText) findViewById(R.id.nbrUnitS1);
+        nbrUnitsS2 = (EditText) findViewById(R.id.nbrUnitS2);
 
         btnEditModules = (Button) findViewById(R.id.buttoneditmodule);
         btnEditModules.setOnClickListener(new View.OnClickListener() {
@@ -97,31 +79,19 @@ public class Customizer extends AppCompatActivity {
             }
         });
 
-
         btnSave = (Button) findViewById(R.id.btnS);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intentNotes = new Intent(Customizer.this, Launcher.class);
-                Semestre s1, s2;
-                Annee year;
-                List<ModuleG> moduleGList;
-                List<Unit> unitList;
 
-                for (Object modules : modulesListAdapter.listData) {
+                intentNotes.putExtra("userId", getIntent().getSerializableExtra("userId"));
+                intentNotes.putExtra("loggedUserName", getIntent().getSerializableExtra("loggedUseName"));
 
-                }
-
-
-                s1 = new Semestre(1);
-                s2 = new Semestre(2);
-                year = new Annee(annee.getText().toString(), s1, s2);
-
-                // intentNotes.putExtra("year", (Serializable) year);
                 startActivity(intentNotes);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-
 
         final EditText content = (EditText) findViewById(R.id.content);
         final ImageButton addModule = (ImageButton) findViewById(R.id.imageButtonAddModule);
@@ -135,6 +105,7 @@ public class Customizer extends AppCompatActivity {
                 modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
                 FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
                 ModuleCustomizePopup popup = new ModuleCustomizePopup();
+                popup.setModule(newModule);
                 popup.show(manager, null);
 
             }

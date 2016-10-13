@@ -53,8 +53,6 @@
         <activity
             android:name=".activities.login.SignupActivity"
             android:theme="@style/AppTheme.Dark" />
-
-
     </application>
 
 </manifest>

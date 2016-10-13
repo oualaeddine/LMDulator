@@ -11,12 +11,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.FirstTimeSetup;
+import dz.da3sou9a.oualaeddine.lmdulator.db.UsersTableManager;
+import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 
 public class SignupActivity extends AppCompatActivity {
     private static final String TAG = "SignupActivity";
+    private static final int REQUEST_SIGNIN = 0;
 
     @Bind(R.id.input_name)
     EditText _nameText;
@@ -77,31 +83,51 @@ public class SignupActivity extends AppCompatActivity {
         progressDialog.show();
 
         String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+        //String address = _addressText.getText().toString();
+        // String email = _emailText.getText().toString();
+        //String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
 
         // TODO: Implement your own signup logic here.
+        final User newUser = new User();
+        newUser.setUserName(name);
+        newUser.setPassword(password);
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onSignupSuccess or onSignupFailed
                         // depending on success
-                        onSignupSuccess();
+                        onSignupSuccess(newUser);
                         // onSignupFailed();
                         progressDialog.dismiss();
                     }
                 }, 3000);
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivityForResult(intent, REQUEST_SIGNIN);
+        finish();
+        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+    }
 
-    public void onSignupSuccess() {
+    public void onSignupSuccess(User newUser) {
         _signupButton.setEnabled(true);
         setResult(RESULT_OK, null);
+        UsersTableManager db = new UsersTableManager(getApplicationContext());
+        db.addUser(newUser);
+        int userId = db.getUserIdByName(newUser.getUserName());
+        newUser.setUserId(userId);
+        Intent intent = new Intent(getApplicationContext(), FirstTimeSetup.class);
+        intent.putExtra("loggedUserId", (Serializable) newUser.getUserId());
+        intent.putExtra("loggedUserName", (Serializable) newUser.getUserName());
+        startActivity(intent);
+
         finish();
+
     }
 
     public void onSignupFailed() {
@@ -114,19 +140,19 @@ public class SignupActivity extends AppCompatActivity {
         boolean valid = true;
 
         String name = _nameText.getText().toString();
-        String address = _addressText.getText().toString();
-        String email = _emailText.getText().toString();
-        String mobile = _mobileText.getText().toString();
+        //   String address = _addressText.getText().toString();
+        // String email = _emailText.getText().toString();
+        //   String mobile = _mobileText.getText().toString();
         String password = _passwordText.getText().toString();
         String reEnterPassword = _reEnterPasswordText.getText().toString();
-
+        //TODO: test if the user already exists in db
         if (name.isEmpty() || name.length() < 3) {
             _nameText.setError("at least 3 characters");
             valid = false;
         } else {
             _nameText.setError(null);
         }
-
+/**
         if (address.isEmpty()) {
             _addressText.setError("Enter Valid Address");
             valid = false;
@@ -148,7 +174,7 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _mobileText.setError(null);
         }
-
+ **/
         if (password.isEmpty() || password.length() < 4 || password.length() > 10) {
             _passwordText.setError("between 4 and 10 alphanumeric characters");
             valid = false;
@@ -162,7 +188,16 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             _reEnterPasswordText.setError(null);
         }
+        UsersTableManager db = new UsersTableManager(getApplicationContext());
+        db.open();
 
+        if (db.isUser(name)) {
+            Toast.makeText(getBaseContext(), "Username already taken", Toast.LENGTH_LONG).show();
+            _nameText.setError("username already taken");
+            valid = false;
+        }
         return valid;
+
     }
+
 }

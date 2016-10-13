@@ -45,9 +45,12 @@ public class NotesTable extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notes_table);
-        Intent intent = getIntent();
-        year =  (Annee) intent.getSerializableExtra("year");
-
+        try {
+            Intent intent = getIntent();
+            year = (Annee) intent.getSerializableExtra("year");
+        } catch (Exception e) {
+            System.out.println("can't get intent");
+        }
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -126,75 +129,20 @@ public class NotesTable extends AppCompatActivity {
 
             recapView = inflater.inflate(R.layout.fragment_notes_recap, container, false);
             rootView = inflater.inflate(R.layout.fragment_tableau_notes, container, false);
-/**
- TextView mn1 = (TextView) rootView.findViewById(R.id.moduleName1);
- TextView mn2 = (TextView) rootView.findViewById(R.id.moduleName2);
- TextView mn3 = (TextView) rootView.findViewById(R.id.moduleName3);
- TextView mn4 = (TextView) rootView.findViewById(R.id.moduleName4);
- TextView mn5 = (TextView) rootView.findViewById(R.id.moduleName5);
- TextView mn6 = (TextView) rootView.findViewById(R.id.moduleName6);
- TextView mn7 = (TextView) rootView.findViewById(R.id.moduleName7);
- TextView mn8 = (TextView) rootView.findViewById(R.id.moduleName8);
 
- EditText tp1 = (EditText) rootView.findViewById(R.id.tp1);
- EditText tp2 = (EditText) rootView.findViewById(R.id.tp2);
- EditText tp3 = (EditText) rootView.findViewById(R.id.tp3);
- EditText tp4 = (EditText) rootView.findViewById(R.id.tp4);
- EditText tp5 = (EditText) rootView.findViewById(R.id.tp5);
- EditText tp6 = (EditText) rootView.findViewById(R.id.tp6);
- EditText tp7 = (EditText) rootView.findViewById(R.id.tp7);
- EditText tp8 = (EditText) rootView.findViewById(R.id.tp8);
-
- EditText td1 = (EditText) rootView.findViewById(R.id.td1);
- EditText td2 = (EditText) rootView.findViewById(R.id.td2);
- EditText td3 = (EditText) rootView.findViewById(R.id.td3);
- EditText td4 = (EditText) rootView.findViewById(R.id.td4);
- EditText td5 = (EditText) rootView.findViewById(R.id.td5);
- EditText td6 = (EditText) rootView.findViewById(R.id.td6);
- EditText td7 = (EditText) rootView.findViewById(R.id.td7);
- EditText td8 = (EditText) rootView.findViewById(R.id.td8);
-
- EditText cont1 = (EditText) rootView.findViewById(R.id.cont1);
- EditText cont2 = (EditText) rootView.findViewById(R.id.cont2);
- EditText cont3 = (EditText) rootView.findViewById(R.id.cont3);
- EditText cont4 = (EditText) rootView.findViewById(R.id.cont4);
- EditText cont5 = (EditText) rootView.findViewById(R.id.cont5);
- EditText cont6 = (EditText) rootView.findViewById(R.id.cont6);
- EditText cont7 = (EditText) rootView.findViewById(R.id.cont7);
- EditText cont8 = (EditText) rootView.findViewById(R.id.cont8);
-
- TextView cred1 = (TextView) rootView.findViewById(R.id.cred1);
- TextView cred2 = (TextView) rootView.findViewById(R.id.cred2);
- TextView cred3 = (TextView) rootView.findViewById(R.id.cred3);
- TextView cred4 = (TextView) rootView.findViewById(R.id.cred4);
- TextView cred5 = (TextView) rootView.findViewById(R.id.cred5);
- TextView cred6 = (TextView) rootView.findViewById(R.id.cred6);
- TextView cred7 = (TextView) rootView.findViewById(R.id.cred7);
- TextView cred8 = (TextView) rootView.findViewById(R.id.cred8);
-
- TextView moy1 = (TextView) rootView.findViewById(R.id.moy1);
- TextView moy2 = (TextView) rootView.findViewById(R.id.moy2);
- TextView moy3 = (TextView) rootView.findViewById(R.id.moy3);
- TextView moy4 = (TextView) rootView.findViewById(R.id.moy4);
- TextView moy5 = (TextView) rootView.findViewById(R.id.moy5);
- TextView moy6 = (TextView) rootView.findViewById(R.id.moy6);
- TextView moy7 = (TextView) rootView.findViewById(R.id.moy7);
- TextView moy8 = (TextView) rootView.findViewById(R.id.moy8);
- **/
             TextView credTot = (TextView) rootView.findViewById(R.id.credS);
             TextView moyS = (TextView) rootView.findViewById(R.id.moyS);
 
+            /**
+             * TODO: implement read db
+             * put every tableRow in module object ,
+             * put every module in list ,
+             * iterate the list ,
+             * put every module in its unit inside its semester.
+             **/
 
-
-
-          /**  TODO Annee annee =  modul.year; //jabt annee
-            Semestre s1 = annee.getS1();//jbadt menha
-            Semestre s2 = annee.getS2();//les semestres
-            List unitsS1 = s1.getSemester();//jbadt mn les semestrs
-            List unitsS2 = s2.getSemester();//les listes des unités
-            //kifah dork ndir bah njbd les modules?
-**/
             table = (TableLayout) rootView.findViewById(R.id.tableauNotes);
+
             tabRow = new TableRow(getContext());
             TextView moduleName = new TextView(getContext());
             EditText moduleTp = new EditText(getContext());
@@ -265,13 +213,9 @@ public class NotesTable extends AppCompatActivity {
                 moduleName.setText("ouala");
                 table.addView(tabRow);
 //TODO: set the colors
-
-                /**
-                 }
-                 }
-                 **/
                 return rootView;
             } else {
+
                 return recapView;
             }
         }

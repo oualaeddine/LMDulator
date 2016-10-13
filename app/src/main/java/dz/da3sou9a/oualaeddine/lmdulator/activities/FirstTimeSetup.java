@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 
@@ -20,6 +21,11 @@ public class FirstTimeSetup extends AppCompatActivity {
         setContentView(R.layout.activity_first_time_setup);
         initL1();
 
+        int loggedUserId = (int) getIntent().getSerializableExtra("loggedUserId");
+        String loggedUserName = (String) getIntent().getSerializableExtra("loggedUserName");
+
+        Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
+
     }
 
     public void initL1() {
@@ -32,7 +38,10 @@ public class FirstTimeSetup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentl1 = new Intent(FirstTimeSetup.this, MainActivity.class);
+                intentl1.putExtra("userId", getIntent().getSerializableExtra("userId"));
+                intentl1.putExtra("loggedUserName", getIntent().getSerializableExtra("loggedUseName"));
                 startActivity(intentl1);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         assert butautre != null;
@@ -40,7 +49,10 @@ public class FirstTimeSetup extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intentl2 = new Intent(FirstTimeSetup.this, Customizer.class);
+                intentl2.putExtra("userId", getIntent().getSerializableExtra("userId"));
+                intentl2.putExtra("loggedUserName", getIntent().getSerializableExtra("loggedUseName"));
                 startActivity(intentl2);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 

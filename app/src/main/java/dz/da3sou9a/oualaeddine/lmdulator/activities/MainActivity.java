@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentl1 = new Intent(MainActivity.this, Launcher.class);
                 startActivity(intentl1);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         butl2.setOnClickListener(new View.OnClickListener() {
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentl2 = new Intent(MainActivity.this, Launcher.class);
                 startActivity(intentl2);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         butl3.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentl3 = new Intent(MainActivity.this, Launcher.class);
                 startActivity(intentl3);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         butm1.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentm1 = new Intent(MainActivity.this, Launcher.class);
                 startActivity(intentm1);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
         butm2.setOnClickListener(new View.OnClickListener() {
@@ -61,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentm2 = new Intent(MainActivity.this, Launcher.class);
                 startActivity(intentm2);
+                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 

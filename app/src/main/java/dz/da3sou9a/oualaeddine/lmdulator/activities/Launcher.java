@@ -1,6 +1,5 @@
 package dz.da3sou9a.oualaeddine.lmdulator.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,6 +14,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -25,9 +25,9 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
-import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 
 import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
@@ -35,21 +35,11 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 public class Launcher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
-    public static Annee year;
-    private Launcher.SectionsPagerAdapter mSectionsPagerAdapter;
-    private ViewPager mViewPager;
-
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_launcher);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -72,16 +62,23 @@ public class Launcher extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-
-        Intent intent = getIntent();
-        year = (Annee) intent.getSerializableExtra("year");
+        try {
+            int loggedUserId = (int) getIntent().getSerializableExtra("userId");
+            String loggedUserName = (String) getIntent().getSerializableExtra("loggedUserName");
+            String LoggedUserId = (String) getIntent().getSerializableExtra("password");
+            Log.e("user id from intent = ", String.valueOf(loggedUserId));
+            Log.e("user id sent to toast", LoggedUserId);
+            Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
+        } catch (NullPointerException e) {
+            Toast.makeText(getBaseContext(), "enjoy!", Toast.LENGTH_LONG).show();
+        }
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new Launcher.SectionsPagerAdapter(getSupportFragmentManager());
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with the sections adapter.
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
         if (mViewPager != null) {
             mViewPager.setAdapter(mSectionsPagerAdapter);
         }
@@ -91,15 +88,6 @@ public class Launcher extends AppCompatActivity
             tabLayout.setupWithViewPager(mViewPager);
         }
 
-        //  table = (TableLayout)findViewById(tabLayout)
-
-
-
-
-
-
-
-
     }
 
     @Override
@@ -108,7 +96,8 @@ public class Launcher extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            //TODO:create goodby intent
+            moveTaskToBack(true);
         }
     }
 
@@ -159,7 +148,6 @@ public class Launcher extends AppCompatActivity
         return true;
     }
 
-
     public static class PlaceholderFragment extends Fragment {
         /**
          * The fragment argument representing the section number for this
@@ -191,61 +179,7 @@ public class Launcher extends AppCompatActivity
 
             recapView = inflater.inflate(R.layout.fragment_notes_recap, container, false);
             rootView = inflater.inflate(R.layout.fragment_tableau_notes, container, false);
-/**
- TextView mn1 = (TextView) rootView.findViewById(R.id.moduleName1);
- TextView mn2 = (TextView) rootView.findViewById(R.id.moduleName2);
- TextView mn3 = (TextView) rootView.findViewById(R.id.moduleName3);
- TextView mn4 = (TextView) rootView.findViewById(R.id.moduleName4);
- TextView mn5 = (TextView) rootView.findViewById(R.id.moduleName5);
- TextView mn6 = (TextView) rootView.findViewById(R.id.moduleName6);
- TextView mn7 = (TextView) rootView.findViewById(R.id.moduleName7);
- TextView mn8 = (TextView) rootView.findViewById(R.id.moduleName8);
 
- EditText tp1 = (EditText) rootView.findViewById(R.id.tp1);
- EditText tp2 = (EditText) rootView.findViewById(R.id.tp2);
- EditText tp3 = (EditText) rootView.findViewById(R.id.tp3);
- EditText tp4 = (EditText) rootView.findViewById(R.id.tp4);
- EditText tp5 = (EditText) rootView.findViewById(R.id.tp5);
- EditText tp6 = (EditText) rootView.findViewById(R.id.tp6);
- EditText tp7 = (EditText) rootView.findViewById(R.id.tp7);
- EditText tp8 = (EditText) rootView.findViewById(R.id.tp8);
-
- EditText td1 = (EditText) rootView.findViewById(R.id.td1);
- EditText td2 = (EditText) rootView.findViewById(R.id.td2);
- EditText td3 = (EditText) rootView.findViewById(R.id.td3);
- EditText td4 = (EditText) rootView.findViewById(R.id.td4);
- EditText td5 = (EditText) rootView.findViewById(R.id.td5);
- EditText td6 = (EditText) rootView.findViewById(R.id.td6);
- EditText td7 = (EditText) rootView.findViewById(R.id.td7);
- EditText td8 = (EditText) rootView.findViewById(R.id.td8);
-
- EditText cont1 = (EditText) rootView.findViewById(R.id.cont1);
- EditText cont2 = (EditText) rootView.findViewById(R.id.cont2);
- EditText cont3 = (EditText) rootView.findViewById(R.id.cont3);
- EditText cont4 = (EditText) rootView.findViewById(R.id.cont4);
- EditText cont5 = (EditText) rootView.findViewById(R.id.cont5);
- EditText cont6 = (EditText) rootView.findViewById(R.id.cont6);
- EditText cont7 = (EditText) rootView.findViewById(R.id.cont7);
- EditText cont8 = (EditText) rootView.findViewById(R.id.cont8);
-
- TextView cred1 = (TextView) rootView.findViewById(R.id.cred1);
- TextView cred2 = (TextView) rootView.findViewById(R.id.cred2);
- TextView cred3 = (TextView) rootView.findViewById(R.id.cred3);
- TextView cred4 = (TextView) rootView.findViewById(R.id.cred4);
- TextView cred5 = (TextView) rootView.findViewById(R.id.cred5);
- TextView cred6 = (TextView) rootView.findViewById(R.id.cred6);
- TextView cred7 = (TextView) rootView.findViewById(R.id.cred7);
- TextView cred8 = (TextView) rootView.findViewById(R.id.cred8);
-
- TextView moy1 = (TextView) rootView.findViewById(R.id.moy1);
- TextView moy2 = (TextView) rootView.findViewById(R.id.moy2);
- TextView moy3 = (TextView) rootView.findViewById(R.id.moy3);
- TextView moy4 = (TextView) rootView.findViewById(R.id.moy4);
- TextView moy5 = (TextView) rootView.findViewById(R.id.moy5);
- TextView moy6 = (TextView) rootView.findViewById(R.id.moy6);
- TextView moy7 = (TextView) rootView.findViewById(R.id.moy7);
- TextView moy8 = (TextView) rootView.findViewById(R.id.moy8);
- **/
             TextView credTot = (TextView) rootView.findViewById(R.id.credS);
             TextView moyS = (TextView) rootView.findViewById(R.id.moyS);
 

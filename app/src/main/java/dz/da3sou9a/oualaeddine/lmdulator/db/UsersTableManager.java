@@ -4,8 +4,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import dz.da3sou9a.oualaeddine.lmdulator.items.User;
+
+import static java.lang.Integer.parseInt;
 
 
 /**
@@ -13,7 +16,6 @@ import dz.da3sou9a.oualaeddine.lmdulator.items.User;
  */
 
 public class UsersTableManager extends DbHandler{
-
 
     private static final String
         users_Table_Name="Users_tab",
@@ -23,9 +25,9 @@ public class UsersTableManager extends DbHandler{
         userId="id",
     //create usersTab
     create_Users_Table = "CREATE TABLE \"" + users_Table_Name + "\" ( `" +
-            userId + "` INTEGER NOT NULL UNIQUE, `" +
-            userName + "` TEXT NOT NULL UNIQUE, `" +
-            password + "` TEXT NOT NULL, PRIMARY KEY(`" + userId + "`) )",
+            userId + "` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE , `" +
+            userName + "` TEXT NOT NULL UNIQUE , `" +
+            password + "` TEXT NOT NULL )",
     //drop userstab
         users_Table_Drop = "DROP TABLE IF EXISTS " + users_Table_Name + ";";
 
@@ -48,11 +50,6 @@ public class UsersTableManager extends DbHandler{
         value.put(password, user.getPassword());
         open().insert(users_Table_Name, null, value);
 
-
-        //ou
-
-        open().insert(users_Table_Name, null, value);
-
     }
 
 /** Todo:check deleteUser method**/
@@ -68,12 +65,40 @@ public class UsersTableManager extends DbHandler{
     }
 
     public Cursor getUserById(int id) {
-        Cursor res =  open().rawQuery( "select * from contacts where "+userId+" = "+id+"", null );
-        return res;
+        return open().rawQuery("select * from " + users_Table_Name + " where " + userId + " = '" + id + "'", null);
    }
 
-    public Cursor getUserName(String user_name) {
-        Cursor res =  open().rawQuery( "select * from contacts where "+userName+" = "+user_name+"", null );
-        return res;
+    public String getPasswordByName(String user_name) {
+        Cursor res = open().rawQuery("select * from " + users_Table_Name + " where " + userName + " ='" + user_name + "'", null);
+        if (res.getCount() < 1) {
+            res.close();
+            return "no";
+        } else {
+            res.moveToFirst();
+            return res.getString(res.getColumnIndex(password));
+        }
    }
+
+    public boolean isUser(String user_name) {
+        try {
+
+            Cursor res = open().rawQuery("select * from " + users_Table_Name + " where " + userName + " ='" + user_name + "'", null);
+            if (res.getCount() < 1) {
+                Log.e("iside", "inside  isUser() if");
+                res.close();
+                return false;
+            }
+        } catch (Exception e) {
+
+        }
+        return true;
+    }
+
+    public int getUserIdByName(String user_name) {
+        Cursor res = open().rawQuery("select * from " + users_Table_Name + " where " + userName + " = '" + user_name + "'", null);
+        res.close();
+        res.moveToFirst();
+        return parseInt(res.getString(res.getColumnIndex(userId)));
+
+    }
 }
