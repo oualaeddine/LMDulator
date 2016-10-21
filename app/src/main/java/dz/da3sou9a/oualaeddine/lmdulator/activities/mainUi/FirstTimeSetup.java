@@ -1,4 +1,4 @@
-package dz.da3sou9a.oualaeddine.lmdulator.activities;
+package dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi;
 
 import android.content.Context;
 import android.content.Intent;

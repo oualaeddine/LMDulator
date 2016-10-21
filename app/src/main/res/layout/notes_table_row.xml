@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TableRow
+        android:id="@+id/tableRow2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#a037474f">
+
+        <TextView
+            android:id="@+id/moduleName"
+            android:layout_width="match_parent"
+
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:width="50dp"
+            android:height="30dp"
+            android:background="#d837474f"
+            android:maxLines="1"
+            android:textStyle="normal|bold" />
+
+        <EditText
+            android:id="@+id/tp"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:width="50dp"
+            android:height="30dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:textStyle="normal|bold" />
+
+        <EditText
+            android:id="@+id/td"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:width="50dp"
+            android:height="30dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:textStyle="normal|bold" />
+
+        <EditText
+            android:id="@+id/cont"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:width="50dp"
+            android:height="30dp"
+            android:ems="10"
+            android:inputType="numberDecimal"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/cred"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:width="50dp"
+            android:height="30dp"
+            android:inputType="numberDecimal"
+            android:maxLines="1"
+            android:text="00"
+            android:textStyle="normal|bold" />
+
+        <TextView
+            android:id="@+id/moy"
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:width="50dp"
+            android:height="30dp"
+            android:background="#37474f"
+            android:maxLines="1"
+            android:numeric="signed|decimal"
+            android:singleLine="true"
+            android:text="0,00"
+            android:textStyle="normal|bold" />
+    </TableRow>
+
+</LinearLayout>

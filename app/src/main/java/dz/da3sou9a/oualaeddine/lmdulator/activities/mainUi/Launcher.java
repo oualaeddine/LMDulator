@@ -1,7 +1,6 @@
-package dz.da3sou9a.oualaeddine.lmdulator.activities;
+package dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -15,23 +14,22 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TableRow.LayoutParams;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.List;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
-
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.notesRecyclerView.ViewAdapter;
+import dz.da3sou9a.oualaeddine.lmdulator.db.ModulesTableManager;
+import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 
 public class Launcher extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -62,22 +60,8 @@ public class Launcher extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-/**
-        try {
-            int loggedUserId = (int) getIntent().getSerializableExtra("userId");
-            String loggedUserName = (String) getIntent().getSerializableExtra("loggedUserName");
-            String LoggedUserId = (String) getIntent().getSerializableExtra("password");
-            Log.e("user id from intent = ", String.valueOf(loggedUserId));
-            Log.e("user id sent to toast", LoggedUserId);
-            Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
-        } catch (NullPointerException e) {
-            Toast.makeText(getBaseContext(), "enjoy!", Toast.LENGTH_LONG).show();
- }**/
 
-        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-        int loggedUserId = preferences.getInt("userId", 99);
-        String loggedUserName = preferences.getString("userName", "noUser");
-        Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
+        //   Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -159,10 +143,12 @@ public class Launcher extends AppCompatActivity
          * The fragment argument representing the section number for this
          * fragment.
          */
+
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private static int userId = 1, yearId = 1;
         View rootView, recapView;
-        TableLayout table;
-        TableRow tabRow;
+        private RecyclerView notesRecycler;
+        private ViewAdapter adapter;
 
         public PlaceholderFragment() {
         }
@@ -171,115 +157,54 @@ public class Launcher extends AppCompatActivity
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static NotesTable.PlaceholderFragment newInstance(int sectionNumber) {
-            NotesTable.PlaceholderFragment fragment = new NotesTable.PlaceholderFragment();
+        public static PlaceholderFragment newInstance(int sectionNumber) {
+            PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
+        public static List<ModuleG> getData(Context context, int userId, int yearId, int semesterId) {
+            ModulesTableManager db = new ModulesTableManager(context);
+            db.open();
+            return db.getModules(userId, yearId, semesterId);
+        }
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-
             recapView = inflater.inflate(R.layout.fragment_notes_recap, container, false);
             rootView = inflater.inflate(R.layout.fragment_tableau_notes, container, false);
 
             TextView credTot = (TextView) rootView.findViewById(R.id.credS);
             TextView moyS = (TextView) rootView.findViewById(R.id.moyS);
 
+            //TODO: set the colors to the modules;
 
-            /**  TODO Annee annee =  modul.year; //jabt annee
-             Semestre s1 = annee.getS1();//jbadt menha
-             Semestre s2 = annee.getS2();//les semestres
-             List unitsS1 = s1.getSemester();//jbadt mn les semestrs
-             List unitsS2 = s2.getSemester();//les listes des unités
-             //kifah dork ndir bah njbd les modules?
-             **/
-            table = (TableLayout) rootView.findViewById(R.id.tableauNotes);
-            tabRow = new TableRow(getContext());
-            TextView moduleName = new TextView(getContext());
-            EditText moduleTp = new EditText(getContext());
-            EditText moduleTd = new EditText(getContext());
-            EditText moduleCont = new EditText(getContext());
-            TextView moduleMoy = new TextView(getContext());
-            TextView moduleCred = new TextView(getContext());
+            /**
+             * implementing recycler
+             */
 
-            LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT, (float) 1.0);
-            LayoutParams layoutParams = new LayoutParams(MATCH_PARENT, WRAP_CONTENT, (float) 1.0);
+            notesRecycler = (RecyclerView) rootView.findViewById(R.id.units_list_rec);
 
             if (getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
-                /** for(Object next :unitsS1)
-                 {
-                 for (ModuleG next2 :((Unit) next).getUnitModulesList()){**/
-
-                 tabRow.addView(moduleName);
-                 tabRow.addView(moduleTp);
-                 tabRow.addView(moduleTd);
-                 tabRow.addView(moduleCont);
-                 tabRow.addView(moduleCred);
-                 tabRow.addView(moduleMoy);
-
-                 tabRow.setLayoutParams(layoutParams);
-
-                 moduleName.setLayoutParams(lp);
-                 moduleTp.setLayoutParams(lp);
-                 moduleTd.setLayoutParams(lp);
-                 moduleCont.setLayoutParams(lp);
-                 moduleCred.setLayoutParams(lp);
-                 moduleMoy.setLayoutParams(lp);
-
-                moduleCont.setText("00");
-                moduleCred.setText("00");
-                moduleMoy.setText("00");
-                moduleTd.setText("00");
-                moduleName.setText("ouala");
-                table.addView(tabRow);/**
-                 }
-                 }**/
-
+                adapter = new ViewAdapter(getActivity(), getData(getActivity(), userId, yearId, 1));
+                notesRecycler.setAdapter(adapter);
+                notesRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
                 return rootView;
             } else if (getArguments().getInt(ARG_SECTION_NUMBER) == 2) {
-                /** for(Object next :unitsS2)
-                 {
-                 for (ModuleG next2 :((Unit) next).getUnitModulesList()){**/
-
-                 tabRow.addView(moduleName);
-                 tabRow.addView(moduleTp);
-                 tabRow.addView(moduleTd);
-                 tabRow.addView(moduleCont);
-                 tabRow.addView(moduleCred);
-                 tabRow.addView(moduleMoy);
-
-                 tabRow.setLayoutParams(layoutParams);
-
-                 moduleName.setLayoutParams(lp);
-                 moduleTp.setLayoutParams(lp);
-                 moduleTd.setLayoutParams(lp);
-                 moduleCont.setLayoutParams(lp);
-                 moduleCred.setLayoutParams(lp);
-                 moduleMoy.setLayoutParams(lp);
-
-                moduleCont.setText("00");
-                moduleCred.setText("00");
-                moduleMoy.setText("00");
-                moduleTd.setText("00");
-                moduleName.setText("ouala");
-                 table.addView(tabRow);
-//TODO: set the colors
-
-
-                /**
-                 }
-                 }
-                 **/
+                adapter = new ViewAdapter(getActivity(), getData(getActivity(), userId, yearId, 2));
+                notesRecycler.setAdapter(adapter);
+                notesRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
                 return rootView;
             } else {
+
                 return recapView;
             }
         }
     }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -295,7 +220,7 @@ public class Launcher extends AppCompatActivity
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return NotesTable.PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position + 1);
         }
 
         @Override
@@ -317,6 +242,4 @@ public class Launcher extends AppCompatActivity
             return null;
         }
     }
-
-
 }

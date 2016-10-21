@@ -1,4 +1,4 @@
-package dz.da3sou9a.oualaeddine.lmdulator.activities;
+package dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi;
 
 import android.content.Context;
 import android.content.Intent;
@@ -51,10 +51,10 @@ public class Customizer extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.modules_list_rec);
         //LayoutManager LinearLayoutManager
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ModulesTableManager db = new ModulesTableManager(this);
+        final ModulesTableManager db = new ModulesTableManager(this);
         modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(db, loggedUserId, currentYear), this);
         recyclerView.setAdapter(modulesListAdapter);
-        modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size());
+
         Log.e("list data recycler size", String.valueOf(modulesListAdapter.listData.size()));
         /** end using recyclerView**/
         /**
@@ -90,6 +90,8 @@ public class Customizer extends AppCompatActivity {
                     modulesList.setVisibility(View.GONE);
                 } else {
                     modulesList.setVisibility(VISIBLE);
+                    modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size());
+
                 }
             }
         });
@@ -103,6 +105,9 @@ public class Customizer extends AppCompatActivity {
  intentNotes.putExtra("userId", loggedUserId);
  intentNotes.putExtra("loggedUserName", loggedUserName);
  **/
+                for (Object module : modulesListAdapter.listData) {
+                    db.addModule((ModuleG) module);
+                }
                 startActivity(intentNotes);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }

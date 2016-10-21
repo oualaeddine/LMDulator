@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -69,33 +70,52 @@ public class ModulesTableManager extends dbManager{
     }
 
     public void addModule(ModuleG module) {
-        open();
-        ContentValues value = new ContentValues();
-        value.put(userId, module.getUserId());
-        value.put(year_id, module.getYearId());
-        value.put(unit_id, module.getUnitId());
-        value.put(semester, module.getSemester());
-        value.put(module_name, module.getModuleName());
-        value.put(cred_default, module.getDefCred());
-        value.put(coef, module.getCoef());
-        boolean is_tp = module.isTpState();
-        if (is_tp) {
-            value.put(is_tp_true, 1);
+        if (!ModuleInDb(module)) {
+            open();
+            ContentValues value = new ContentValues();
+            value.put(userId, module.getUserId());
+            value.put(year_id, module.getYearId());
+            value.put(unit_id, module.getUnitId());
+            value.put(semester, module.getSemester());
+            value.put(module_name, module.getModuleName());
+            value.put(cred_default, module.getDefCred());
+            value.put(coef, module.getCoef());
+            boolean is_tp = module.isTpState();
+            if (is_tp) {
+                value.put(is_tp_true, 1);
+            } else {
+                value.put(is_tp_true, 0);
+            }
+            boolean is_td = module.isTdState();
+            if (is_td) {
+                value.put(is_td_true, 1);
+            } else {
+                value.put(is_td_true, 0);
+            }
+            value.put(note_td, module.getTd());
+            value.put(note_tp, module.getTp());
+            value.put(note_controle, module.getCont());
+            mDb.insert(notes_Table_Name, null, value);
+            close();
         } else {
-            value.put(is_tp_true, 0);
+            editModule(module);
         }
-        boolean is_td = module.isTdState();
-        if (is_td) {
-            value.put(is_td_true, 1);
-        } else {
-            value.put(is_td_true, 0);
-        }
-        value.put(note_td, module.getTd());
-        value.put(note_tp, module.getTp());
-        value.put(note_controle, module.getCont());
-        mDb.insert(notes_Table_Name, null, value);
-        close();
     }
+
+    private boolean ModuleInDb(ModuleG module) {
+        try {
+            Cursor res = open().rawQuery("select * from " + notes_Table_Name + " where " + module_id + " ='" + module.getId() + "'", null);
+            if (res.getCount() < 1) {
+                Log.e("test:", "inside  isModule() if");
+                res.close();
+                return false;
+            }
+        } catch (Exception e) {
+
+        }
+        return true;
+    }
+
 
     public void deleteModule(long id) {
                  mDb.delete(notes_Table_Name, module_id + " = ?", new String[] {String.valueOf(id)});
@@ -152,4 +172,37 @@ public class ModulesTableManager extends dbManager{
         close();
         return modulesList;
     }
+
+    public List<ModuleG> getModules(int userid, int yearid, int semesterId) {
+        List<ModuleG> modulesList = new LinkedList<>();
+        Cursor cursor = open().rawQuery("select * from " + notes_Table_Name + " where " + year_id + " = '" + yearid + "' AND " + userId + " = '" + userid + "'" + "' AND " + semester + " = '" + semesterId + "'", null);
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            String _moduleName = cursor.getString(cursor.getColumnIndex(module_name));
+            boolean _is_tp_true, _is_td_true;
+            int _is_tp = Integer.valueOf(cursor.getString(cursor.getColumnIndex(is_tp_true)));
+            _is_tp_true = _is_tp == 1;
+            int _is_td = Integer.valueOf(cursor.getString(cursor.getColumnIndex(is_td_true)));
+            _is_td_true = _is_td == 1;
+
+            int _semester = Integer.valueOf(cursor.getString(cursor.getColumnIndex(semester)));
+            int _unit_id = Integer.valueOf(cursor.getString(cursor.getColumnIndex(unit_id)));
+            int _userId = Integer.valueOf(cursor.getString(cursor.getColumnIndex(userId)));
+            int _year_id = Integer.valueOf(cursor.getString(cursor.getColumnIndex(year_id)));
+            int _coef = Integer.valueOf(cursor.getString(cursor.getColumnIndex(coef)));
+            int _cred_def = Integer.valueOf(cursor.getString(cursor.getColumnIndex(cred_default)));
+            int _module_id = Integer.valueOf(cursor.getString(cursor.getColumnIndex(module_id)));
+
+            double _note_tp = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_tp)));
+            double _note_td = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_td)));
+            double _note_controle = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_controle)));
+
+            ModuleG newModule = new ModuleG(_is_tp_true, _is_td_true, _note_controle, _note_tp, _note_td, _coef, _userId, _unit_id, _year_id, _semester, _module_id, _cred_def, _moduleName);
+
+            modulesList.add(newModule);
+        }
+        cursor.close();
+        close();
+        return modulesList;
+    }
+
 }

@@ -10,7 +10,7 @@ public class ModuleG {
     private int cred = 0;
     private int id,defCred;
 	private String ModuleName;
-    private int icon = R.id.moduleImg;
+    private int icon = R.id.moduleImg, color = R.color.jumbo;
     //Constructors
 
     public ModuleG(String moduleName) {
@@ -194,5 +194,13 @@ public class ModuleG {
 
     public void setSemester(int semester) {
         this.semester = semester;
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 }

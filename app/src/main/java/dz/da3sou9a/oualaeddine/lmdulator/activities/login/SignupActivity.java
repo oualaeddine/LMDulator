@@ -16,7 +16,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import dz.da3sou9a.oualaeddine.lmdulator.R;
-import dz.da3sou9a.oualaeddine.lmdulator.activities.FirstTimeSetup;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.FirstTimeSetup;
 import dz.da3sou9a.oualaeddine.lmdulator.db.UsersTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 

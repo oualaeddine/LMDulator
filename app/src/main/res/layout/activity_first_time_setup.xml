@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="dz.da3sou9a.oualaeddine.lmdulator.activities.FirstTimeSetup">
+    tools:context="dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.FirstTimeSetup">
 
     <!-- The primary full-screen view. This can be replaced with whatever view
          is needed to present your content, e.g. VideoView, SurfaceView,
