@@ -25,12 +25,12 @@ public class IdsTableManager extends dbManager {
 
     //create idTab
     create_id_Table = "create table " + id_Table_Name + " ( " +
-            user_id + " INT NOT NULL, " +
-            year_id + " INT NOT NULL, " +
-            semester_id + " INT NOT NULL, " +
-            unit_id + " INT NOT NULL, " +
-            module_id + " INT NOT NULL, " +
-            gen_id + " INT NOT NULL ) ",
+            user_id + " INTEGER NOT NULL, " +
+            year_id + " INTEGER NOT NULL, " +
+            semester_id + " INTEGER NOT NULL, " +
+            unit_id + " INTEGER NOT NULL, " +
+            module_id + " INTEGER NOT NULL, " +
+            gen_id + " INTEGER NOT NULL ) ",
 
     id_Table_Drop = "DROP TABLE IF EXISTS " + id_Table_Name + ";";
 

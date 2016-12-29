@@ -22,8 +22,7 @@
             android:layout_marginBottom="5dp"
             android:layout_weight="1"
             android:scaleType="centerInside"
-            android:src="@drawable/logo"
-            app:srcCompat="@drawable/hibou" />
+            app:srcCompat="@drawable/logof" />
 
         <!-- Email Label -->
         <android.support.design.widget.TextInputLayout

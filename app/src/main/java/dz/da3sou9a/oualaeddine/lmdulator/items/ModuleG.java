@@ -1,6 +1,7 @@
 package dz.da3sou9a.oualaeddine.lmdulator.items;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.miche.Calcul;
 
 public class ModuleG {
     //Attributes
@@ -101,7 +102,7 @@ public class ModuleG {
     }
 
     public double getMoy() {
-        return Moy;
+        return Calcul.moyModule(this);
     }
 
     public void setMoy(double moy) {
@@ -125,7 +126,7 @@ public class ModuleG {
     }
 
     public int getCred() {
-        return cred;
+        return Calcul.credModule(this);
     }
 
     public void setCred(int cred) {
@@ -202,5 +203,29 @@ public class ModuleG {
 
     public void setColor(int color) {
         this.color = color;
+    }
+
+    @Override
+    public String toString() {
+        return "ModuleG{" +
+                "tpState=" + tpState +
+                ", tdState=" + tdState +
+                ", creditState=" + creditState +
+                ", cont=" + cont +
+                ", Tp=" + Tp +
+                ", Moy=" + Moy +
+                ", Td=" + Td +
+                ", coef=" + coef +
+                ", userId=" + userId +
+                ", unitId=" + unitId +
+                ", yearId=" + yearId +
+                ", semester=" + semester +
+                ", cred=" + cred +
+                ", id=" + id +
+                ", defCred=" + defCred +
+                ", ModuleName='" + ModuleName + '\'' +
+                ", icon=" + icon +
+                ", color=" + color +
+                '}';
     }
 }

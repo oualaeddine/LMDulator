@@ -25,13 +25,13 @@ public class UnitsTableManager extends dbManager{
         userId="id",
         year_id="year_id",
     //create UnitsTable
-    create_Units_Table = "create table "+units_Table_Name+" ( "+
-        unit_name+" TEXT NOT NULL, "+
-        unit_id+" INT NOT NULL AUTOINCREMENT, "+
-        cred_unit+" INT, "+
-        unit_moy+" REAL, "+
-        year_id+" INT NOT NULL, "+
-        userId+" INT NOT NULL) ",
+    create_Units_Table = "CREATE TABLE "+units_Table_Name+" ( `"+
+        unit_name+"` TEXT NOT NULL , `"+
+        unit_id+"` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE , `"+
+        cred_unit+"` INTEGER , `"+
+        unit_moy+"` REAL , `"+
+        year_id+"` INTEGER NOT NULL , `"+
+        userId+"` INTEGER NOT NULL )",
     //drop unitTab
         units_Table_Drop = "DROP TABLE IF EXISTS " + units_Table_Name + ";";
 
@@ -42,14 +42,13 @@ public class UnitsTableManager extends dbManager{
     public void dropUnitsTable(SQLiteDatabase db) {
         db.execSQL(units_Table_Drop);
     }
-    public void addUnit(Unit unit, User user) {
+    public void addUnit(Unit unit, User user,int yearid) {
         open();
         ContentValues value = new ContentValues();
             value.put(userId, user.getUserId());
-           /// value.put(year_id, /**TODO:find a way to sync year,module,user IDs**/);
+           value.put(year_id,yearid);
             value.put(unit_name,unit.getUnitName());
-            value.put(cred_unit,unit.getUnitCred());
-            value.put(unit_moy,unit.getUnitMoy());
+
         mDb.insert(units_Table_Name, null, value);
     }
 
@@ -60,8 +59,7 @@ public class UnitsTableManager extends dbManager{
     public void editUnit(Unit unit) {
         ContentValues value = new ContentValues();
             value.put(unit_name,unit.getUnitName());
-            value.put(cred_unit,unit.getUnitCred());
-            value.put(unit_moy,unit.getUnitMoy());
+
         mDb.update(units_Table_Name, value, userId  + " = ?", new String[] {String.valueOf(unit.getUnitId())});
     }
     /**TODO: fill the moethod**/
@@ -74,6 +72,15 @@ public class UnitsTableManager extends dbManager{
         }
         cursor.close();
       }
+    public void getUnit(int userName){
+
+        Cursor cursor = null;
+        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+        {
+
+        }
+        cursor.close();
+    }
 
     public static String getCreate_Units_Table() {
         return create_Units_Table;

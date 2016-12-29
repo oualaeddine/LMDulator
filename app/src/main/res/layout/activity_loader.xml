@@ -20,28 +20,39 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            android:layout_weight="1">
 
             <ImageView
                 android:id="@+id/imageView3"
                 android:layout_width="match_parent"
-                android:layout_height="568dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/hibou" />
+                android:layout_height="510dp"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/logof" />
+
         </FrameLayout>
 
-        <Button
-            android:id="@+id/button3"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="Login" />
+            android:paddingLeft="24dp"
+            android:paddingBottom="24dp"
+            android:paddingRight="24dp"
+            android:paddingTop="24dp">
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Sign up" />
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Login" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Sign up" />
+        </LinearLayout>
     </LinearLayout>
 
 </FrameLayout>

@@ -10,33 +10,34 @@ import java.util.LinkedList;
 import java.util.List;
 
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
+import dz.da3sou9a.oualaeddine.lmdulator.miche.Calcul;
 
 
 /**
  * Created by Ouala eddine on 01/10/2016.
  */
 
-public class ModulesTableManager extends dbManager{
+public class ModulesTableManager extends dbManager {
 
     private static final String
 
-    notes_Table_Name="Notes_tab",
+            notes_Table_Name = "Notes_tab",
 
     //NotesTable
-        module_name="module_name",
-        is_tp_true="bool_tp",
-        is_td_true="bool_td",
+    module_name = "module_name",
+            is_tp_true = "bool_tp",
+            is_td_true = "bool_td",
             semester = "semester",
-        note_tp="tp",
-        note_td="td",
-        note_controle="cont",
-        cred_default="cred_default",
-        module_cred="cred",
-        module_moy="moyenne",
-        module_id="module_id",
-        unit_id = "unit_id",
-        userId="id",
-        year_id="year_id",
+            note_tp = "tp",
+            note_td = "td",
+            note_controle = "cont",
+            cred_default = "cred_default",
+            module_cred = "cred",
+            module_moy = "moyenne",
+            module_id = "module_id",
+            unit_id = "unit_id",
+            userId = "id",
+            year_id = "year_id",
             coef = "coef",
 
     //create NotesTab
@@ -55,7 +56,7 @@ public class ModulesTableManager extends dbManager{
             "`" + note_tp + "` REAL, " +
             "`" + note_td + "` REAL ) ",
 
-        module_Table_Drop = "DROP TABLE IF EXISTS " + notes_Table_Name + ";";
+    module_Table_Drop = "DROP TABLE IF EXISTS " + notes_Table_Name + ";";
 
     public ModulesTableManager(Context pContext) {
         super(pContext);
@@ -103,10 +104,10 @@ public class ModulesTableManager extends dbManager{
     }
 
     private boolean ModuleInDb(ModuleG module) {
+
         try {
             Cursor res = open().rawQuery("select * from " + notes_Table_Name + " where " + module_id + " ='" + module.getId() + "'", null);
             if (res.getCount() < 1) {
-                Log.e("test:", "inside  isModule() if");
                 res.close();
                 return false;
             }
@@ -118,40 +119,41 @@ public class ModulesTableManager extends dbManager{
 
 
     public void deleteModule(long id) {
-                 mDb.delete(notes_Table_Name, module_id + " = ?", new String[] {String.valueOf(id)});
-                 close();
+        mDb.delete(notes_Table_Name, module_id + " = ?", new String[]{String.valueOf(id)});
+        close();
     }
 
     public void editModule(ModuleG module) {
         ContentValues value = new ContentValues();
         value.put(unit_id, module.getUnitId());
         value.put(semester, module.getSemester());
-            value.put(module_name, module.getModuleName());
-            value.put(cred_default, module.getDefCred());
+        value.put(module_name, module.getModuleName());
+        value.put(cred_default, module.getDefCred());
         value.put(is_td_true, module.isTpState());
         value.put(is_tp_true, module.isTdState());
         value.put(note_td, module.getTd());
-            value.put(note_tp, module.getTp());
-            value.put(note_controle, module.getCont());
-        mDb.update(notes_Table_Name, value, module_id  + " = ?", new String[] {String.valueOf(module.getId())});
+        value.put(note_tp, module.getTp());
+        value.put(note_controle, module.getCont());
+        mDb.update(notes_Table_Name, value, module_id + " = ?", new String[]{String.valueOf(module.getId())});
         close();
     }
 
-    /**TODO: fill the moethod**/
+    /**
+     * TODO: fill the moethod
+     **/
 
-    public List<ModuleG> getModules(int userid, int yearid)
-    {
+    public List<ModuleG> getModules(int userid, int yearid) {
         List<ModuleG> modulesList = new LinkedList<>();
         Cursor cursor = open().rawQuery("select * from " + notes_Table_Name + " where " + year_id + " = '" + yearid + "' AND " + userId + " = '" + userid + "'", null);
-        for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-        {
+        int i = 0;
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             String _moduleName = cursor.getString(cursor.getColumnIndex(module_name));
-            boolean _is_tp_true, _is_td_true, _cred;
+            boolean _is_tp_true;
+            boolean _is_td_true;
             int _is_tp = Integer.valueOf(cursor.getString(cursor.getColumnIndex(is_tp_true)));
             _is_tp_true = _is_tp == 1;
             int _is_td = Integer.valueOf(cursor.getString(cursor.getColumnIndex(is_td_true)));
             _is_td_true = _is_td == 1;
-
             int _semester = Integer.valueOf(cursor.getString(cursor.getColumnIndex(semester)));
             int _unit_id = Integer.valueOf(cursor.getString(cursor.getColumnIndex(unit_id)));
             int _userId = Integer.valueOf(cursor.getString(cursor.getColumnIndex(userId)));
@@ -159,13 +161,12 @@ public class ModulesTableManager extends dbManager{
             int _coef = Integer.valueOf(cursor.getString(cursor.getColumnIndex(coef)));
             int _cred_def = Integer.valueOf(cursor.getString(cursor.getColumnIndex(cred_default)));
             int _module_id = Integer.valueOf(cursor.getString(cursor.getColumnIndex(module_id)));
-
             double _note_tp = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_tp)));
             double _note_td = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_td)));
             double _note_controle = Double.parseDouble(cursor.getString(cursor.getColumnIndex(note_controle)));
-
             ModuleG newModule = new ModuleG(_is_tp_true, _is_td_true, _note_controle, _note_tp, _note_td, _coef, _userId, _unit_id, _year_id, _semester, _module_id, _cred_def, _moduleName);
-
+            newModule.setMoy(Calcul.moyModule(newModule));
+            newModule.setCred(Calcul.credModule(newModule));
             modulesList.add(newModule);
         }
         cursor.close();
@@ -175,7 +176,7 @@ public class ModulesTableManager extends dbManager{
 
     public List<ModuleG> getModules(int userid, int yearid, int semesterId) {
         List<ModuleG> modulesList = new LinkedList<>();
-        Cursor cursor = open().rawQuery("select * from " + notes_Table_Name + " where " + year_id + " = '" + yearid + "' AND " + userId + " = '" + userid + "'" + "' AND " + semester + " = '" + semesterId + "'", null);
+        Cursor cursor = open().rawQuery("select * from " + notes_Table_Name + " where " + year_id + " = '" + yearid + "' AND " + userId + " = '" + userid + "' AND " + semester + " = '" + semesterId + "'", null);
         for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
             String _moduleName = cursor.getString(cursor.getColumnIndex(module_name));
             boolean _is_tp_true, _is_td_true;

@@ -31,15 +31,16 @@ public class DbHandler extends SQLiteOpenHelper{
     public void createTables (SQLiteDatabase db) {
         try {
             db.execSQL(ModulesTableManager.getCreate_Note_Table());
+            Log.e("db","notes db created");
         } catch (Exception e) {
             Log.e("create modules tab", e.toString());
             Log.e("create modules tab", e.getMessage());
             Log.e("create modules tab", String.valueOf(e.getCause()));
         }
-        //    db.execSQL(GenTableManager.getCreate_Gen_Table());
-//        db.execSQL(UnitsTableManager.getCreate_Units_Table());
+        db.execSQL(GenTableManager.getCreate_Gen_Table());
+        db.execSQL(UnitsTableManager.getCreate_Units_Table());
         db.execSQL(UsersTableManager.getCreate_Users_Table());
-        //   db.execSQL(YearTableManager.getCreate_Year_Table());
+        db.execSQL(YearTableManager.getCreate_Year_Table());
     }
     public SQLiteDatabase open() {
         return this.getWritableDatabase();

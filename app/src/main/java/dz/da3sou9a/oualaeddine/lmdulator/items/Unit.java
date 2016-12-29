@@ -6,8 +6,7 @@ import java.util.List;
 
 public class Unit {
     private static int nbrModulePerUnit = 0;
-    private int unitId,coefU,unitCred;
-    private float unitMoy;
+    private int unitId;
     private String unitName;
     private List<ModuleG> unitModulesList = new LinkedList<>();
 
@@ -15,21 +14,10 @@ public class Unit {
         this.unitName = unitName;
     }
 
-    public int getUnitCred() {
-        return unitCred;
+    public Unit(int unitId) {
+        this.unitId = unitId;
     }
 
-    public void setUnitCred(int unitCred) {
-        this.unitCred = unitCred;
-    }
-
-    public float getUnitMoy() {
-        return unitMoy;
-    }
-
-    public void setUnitMoy(float unitMoy) {
-        this.unitMoy = unitMoy;
-    }
 
     public void addModule(ModuleG newModule){
         unitModulesList.add(newModule);
@@ -45,13 +33,7 @@ public class Unit {
         return unitModulesList;
     }
 
-    public int getCoefU() {
-        return coefU;
-    }
 
-    public void setCoefU(int coefU) {
-        this.coefU = coefU;
-    }
 
     public int getUnitId() {
         return unitId;
@@ -68,5 +50,14 @@ public class Unit {
 
     public void setUnitName(String unitName) {
         unitName = unitName;
+    }
+
+    @Override
+    public String toString() {
+        return "Unit{" +
+                "unitId=" + unitId +
+                ", unitName='" + unitName + '\'' +
+                ", unitModulesListSize=" + unitModulesList.size() +
+                '}';
     }
 }

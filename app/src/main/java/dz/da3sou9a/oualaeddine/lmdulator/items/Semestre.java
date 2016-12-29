@@ -1,18 +1,12 @@
 package dz.da3sou9a.oualaeddine.lmdulator.items;
 
 import java.util.LinkedList;
-import java.util.List;
 
 public class Semestre {
     private static int nbUnit = 0;
-    private int  semesterId,semesterCred;
-    private LinkedList semester = new LinkedList();
-    private String semesterName;
-    private long semesterMoy;
+    private int  semesterId;
+    private LinkedList<Unit> semester = new LinkedList<>();
 
-    public Semestre(String semesterName) {
-        this.semesterName = semesterName;
-    }
 
     public Semestre(int semesterId) {
         this.semesterId =semesterId;
@@ -29,30 +23,23 @@ public class Semestre {
 
 
     public int getNbUnit() {
-        return nbUnit;
+        return semester.size();
     }
 
     public int getSemesterId() {
         return semesterId;
     }
 
-    public int getSemesterCred() {
-        return semesterCred;
-    }
 
-    public void setSemesterCred(int semesterCred) {
-        this.semesterCred = semesterCred;
-    }
 
-    public List<Unit> getSemester() {
+    public LinkedList<Unit> getSemester() {
         return semester;
     }
 
-    public String getSemesterName() {
-        return semesterName;
-    }
 
-    public long getSemesterMoy() {
-        return semesterMoy;
+
+    public void setSemester(LinkedList<Unit> semester) {
+        this.semester = semester;
+        nbUnit = semester.size();
     }
 }

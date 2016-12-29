@@ -31,7 +31,7 @@ public class Loader extends AppCompatActivity {
         login.setVisibility(View.GONE);
         sign_up.setVisibility(View.GONE);
 
-        Thread thread = new Thread() {
+        /**Thread thread = new Thread() {
             @Override
             public void run() {
                 try {
@@ -41,7 +41,7 @@ public class Loader extends AppCompatActivity {
                 }
             }
         };
-        thread.start();
+        thread.start();**/
         login.setVisibility(View.VISIBLE);
         sign_up.setVisibility(View.VISIBLE);
 

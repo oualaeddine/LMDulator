@@ -3,28 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:baselineAligned="false">
-
-    <EditText
-        android:id="@+id/content"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_margin="@dimen/text_margin"
-        android:layout_weight="1"
-        android:hint="Module Name"
-        android:inputType=""
-        android:maxLines="1"
-        android:selectAllOnFocus="false"
-        android:textAlignment="center"
-        android:textAppearance="?attr/textAppearanceListItem" />
+    android:baselineAligned="false"
+    android:gravity="center">
 
     <ImageButton
         android:id="@+id/imageButtonAddModule"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="4.59"
         app:srcCompat="@drawable/ic_menu_send" />
 
 </LinearLayout>

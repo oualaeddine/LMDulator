@@ -7,6 +7,12 @@ package dz.da3sou9a.oualaeddine.lmdulator.items;
 public class User {
     private String password,userName;
     private int userId;
+    public User() {
+
+    }
+    public User(int loggedUserId) {
+        userId =loggedUserId;
+    }
 
     public int getUserId() {
         return userId;

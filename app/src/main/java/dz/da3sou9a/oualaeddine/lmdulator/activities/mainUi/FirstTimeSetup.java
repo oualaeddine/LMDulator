@@ -9,7 +9,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.HashMap;
+
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.UserSessionManager;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -24,10 +27,19 @@ public class FirstTimeSetup extends AppCompatActivity {
 
         //   final Serializable loggedUserId =  getIntent().getSerializableExtra("loggedUserId");
         //  final Serializable loggedUserName =  getIntent().getSerializableExtra("loggedUserName");
-        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+       /** SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         int loggedUserId = preferences.getInt("userId", 99);
         String loggedUserName = preferences.getString("userName", "noUser");
         Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
+**/
+
+
+        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
+
+        HashMap loggedUser = userSessionManager.getUserDetails();
+
+        Toast.makeText(getBaseContext(), "userId:" + loggedUser.get("userId") + "  username:" + loggedUser.get("name"), Toast.LENGTH_LONG).show();
+
 
         Button butmias = (Button) findViewById(R.id.butmias);
         Button butautre = (Button) findViewById(R.id.butautre);

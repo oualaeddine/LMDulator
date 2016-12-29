@@ -27,10 +27,10 @@ public class GenTableManager extends dbManager{
 
     //create GenTab
     create_Gen_Table = "create table "+gen_Table_Name+" ( "+
-        userId+" INT NOT NULL, "+
-        year_id+" INT NOT NULL, "+
+        userId+" INTEGER NOT NULL, "+
+        year_id+" INTEGER NOT NULL, "+
         year_moy+" REAL, "+
-        cred_year+" INT, "+
+        cred_year+" INTEGER, "+
         gen_id+" INTEGER PRIMARY KEY AUTOINCREMENT) ",
 
         gen_Table_Drop = "DROP TABLE IF EXISTS " + gen_Table_Name + ";";

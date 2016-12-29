@@ -1,79 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
 
     <TableRow
         android:id="@+id/tableRow2"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="#a037474f">
+        android:background="#a037474f"
+        android:baselineAligned="false">
 
         <TextView
             android:id="@+id/moduleName"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
 
             android:layout_height="fill_parent"
-            android:layout_weight="1"
             android:width="50dp"
             android:height="30dp"
             android:background="#d837474f"
             android:maxLines="1"
-            android:textStyle="normal|bold" />
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textAlignment="viewStart" />
 
-        <EditText
+        <TextView
             android:id="@+id/tp"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
             android:width="50dp"
             android:height="30dp"
             android:ems="10"
             android:inputType="numberDecimal"
             android:maxLines="1"
-            android:textStyle="normal|bold" />
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="1dp" />
 
-        <EditText
+        <TextView
             android:id="@+id/td"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
             android:width="50dp"
             android:height="30dp"
             android:ems="10"
             android:inputType="numberDecimal"
             android:maxLines="1"
-            android:textStyle="normal|bold" />
-
-        <EditText
-            android:id="@+id/cont"
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:gravity="center"
             android:layout_weight="1"
+            android:textColor="@color/white"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="1dp" />
+
+        <TextView
+            android:id="@+id/cont"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
             android:width="50dp"
             android:height="30dp"
             android:ems="10"
             android:inputType="numberDecimal"
-            android:textStyle="normal|bold" />
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:maxLines="1"
+            android:layout_weight="1"
+            android:textColor="@color/white"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="1dp" />
 
         <TextView
             android:id="@+id/cred"
-            android:layout_width="match_parent"
+            android:layout_width="30dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
             android:width="50dp"
             android:height="30dp"
             android:inputType="numberDecimal"
             android:maxLines="1"
             android:text="00"
-            android:textStyle="normal|bold" />
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="1dp" />
 
         <TextView
             android:id="@+id/moy"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="fill_parent"
-            android:layout_weight="1"
             android:width="50dp"
             android:height="30dp"
             android:background="#37474f"
@@ -81,7 +102,12 @@
             android:numeric="signed|decimal"
             android:singleLine="true"
             android:text="0,00"
-            android:textStyle="normal|bold" />
+            android:textStyle="normal|bold"
+            android:textAlignment="center"
+            android:gravity="center"
+            android:layout_weight="1"
+            android:layout_marginTop="1dp"
+            android:layout_marginLeft="1dp" />
     </TableRow>
 
 </LinearLayout>

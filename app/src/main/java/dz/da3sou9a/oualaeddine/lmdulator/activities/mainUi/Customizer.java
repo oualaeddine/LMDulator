@@ -3,6 +3,8 @@ package dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -19,12 +21,21 @@ import android.widget.ImageButton;
 import android.widget.TableRow;
 import android.widget.Toast;
 
+import java.util.HashMap;
+import java.util.List;
+
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.UserSessionManager;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.frags.ModuleCustomizePopup;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListAdapter;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.modulesList.ModulesListContent;
+import dz.da3sou9a.oualaeddine.lmdulator.db.GenTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.db.ModulesTableManager;
+import dz.da3sou9a.oualaeddine.lmdulator.db.YearTableManager;
+import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
+import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
+import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 
 import static android.view.View.VISIBLE;
 
@@ -32,6 +43,7 @@ public class Customizer extends AppCompatActivity {
     private TableRow modulesList;
     private Button btnSave, btnEditModules;
     private EditText specname, annee, nbrUnitsS1, nbrUnitsS2;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,18 +53,30 @@ public class Customizer extends AppCompatActivity {
 
         RecyclerView recyclerView;
         final ModulesListAdapter modulesListAdapter;
+/**
+ SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+ int loggedUserId = preferences.getInt("userId", 1);
+ String loggedUserName = preferences.getString("userName", "noUser");
+ int currentYear = 1;
+ Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
+ **/
+        final UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
 
-        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-        int loggedUserId = preferences.getInt("userId", 1);
-        String loggedUserName = preferences.getString("userName", "noUser");
-        int currentYear = 1;
-        Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
+        final HashMap loggedUser = userSessionManager.getUserDetails();
+
+        final int loggedUserId = Integer.valueOf(loggedUser.get("userId").toString());
 
         recyclerView = (RecyclerView) findViewById(R.id.modules_list_rec);
         //LayoutManager LinearLayoutManager
+        int currentYear = 1;
+        //loggedUserId=1;
+        if (userSessionManager.getSessionYear() > 0) {
+            currentYear = userSessionManager.getSessionYear();
+        }
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final ModulesTableManager db = new ModulesTableManager(this);
-        modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(db, loggedUserId, currentYear), this);
+        List<ModuleG> semesters = ModulesListContent.getModulesList(db, loggedUserId, currentYear);
+        modulesListAdapter = new ModulesListAdapter(semesters, this);
         recyclerView.setAdapter(modulesListAdapter);
 
         Log.e("list data recycler size", String.valueOf(modulesListAdapter.listData.size()));
@@ -75,58 +99,50 @@ public class Customizer extends AppCompatActivity {
             }
         });
 
-        specname=(EditText)findViewById(R.id.SpecName);
-        annee=(EditText)findViewById(R.id.textAnnee);
-        nbrUnitsS1 = (EditText) findViewById(R.id.nbrUnitS1);
-        nbrUnitsS2 = (EditText) findViewById(R.id.nbrUnitS2);
+        specname = (EditText) findViewById(R.id.SpecName);
+        annee = (EditText) findViewById(R.id.textAnnee);
+       // nbrUnitsS1 = (EditText) findViewById(R.id.nbrUnitS1);
+       // nbrUnitsS2 = (EditText) findViewById(R.id.nbrUnitS2);
 
-        btnEditModules = (Button) findViewById(R.id.buttoneditmodule);
-        btnEditModules.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                modulesList = (TableRow) findViewById(R.id.listModules);
-                if (modulesList.getVisibility() == VISIBLE) {
-                    modulesList.setVisibility(View.GONE);
-                } else {
-                    modulesList.setVisibility(VISIBLE);
                     modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size());
 
-                }
-            }
-        });
+
 
         btnSave = (Button) findViewById(R.id.btnS);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //  db.incVersion();
+
                 Intent intentNotes = new Intent(Customizer.this, Launcher.class);
-/**
- intentNotes.putExtra("userId", loggedUserId);
- intentNotes.putExtra("loggedUserName", loggedUserName);
- **/
-                for (Object module : modulesListAdapter.listData) {
-                    db.addModule((ModuleG) module);
-                }
                 startActivity(intentNotes);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 
-        final EditText content = (EditText) findViewById(R.id.content);
+        //final EditText content = (EditText) findViewById(R.id.content);
         final ImageButton addModule = (ImageButton) findViewById(R.id.imageButtonAddModule);
+        final YearTableManager Ydb = new YearTableManager(getApplicationContext());
 
         addModule.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ModuleG newModule = new ModuleG(content.getText().toString());
-                //newModule.setUserId(loggedUserId);
-                newModule.setUserId(1);
+                String _SPECNAME = specname.getText().toString();
+                Annee newYear = new Annee(_SPECNAME);
+                User finalLoggedUser = new User(loggedUserId);
+                Ydb.addYear(newYear, finalLoggedUser);
+                final int y = Ydb.getYearidBySpecName(_SPECNAME);
+                userSessionManager.setCurrentYearId(y);
+          //      ModuleG newModule = new ModuleG(content.getText().toString());
+            ModuleG newModule = new ModuleG("nouveau module");
+                newModule.setUserId(loggedUserId);
                 //modulesListAdapter.listData.add(newModule);
                 //modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
+                //newModule.setYearId(Integer.valueOf(annee.getText().toString()));
                 FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
                 ModuleCustomizePopup popup = new ModuleCustomizePopup();
-                popup.setModule(newModule, modulesListAdapter);
+                popup.setModule(y, newModule, modulesListAdapter, newYear, finalLoggedUser);
                 popup.show(manager, null);
             }
         });
@@ -137,9 +153,43 @@ public class Customizer extends AppCompatActivity {
         moveTaskToBack(true);
         finish();
     }
+
+    public EditText getNbrUnitsS2() {
+        return nbrUnitsS2;
+    }
+
+    public void setNbrUnitsS2(EditText nbrUnitsS2) {
+        this.nbrUnitsS2 = nbrUnitsS2;
+    }
+
+    public EditText getNbrUnitsS1() {
+        return nbrUnitsS1;
+    }
+
+    public void setNbrUnitsS1(EditText nbrUnitsS1) {
+        this.nbrUnitsS1 = nbrUnitsS1;
+    }
+
+    public EditText getAnnee() {
+        return annee;
+    }
+
+    public void setAnnee(EditText annee) {
+        this.annee = annee;
+    }
+
+    public EditText getSpecname() {
+        return specname;
+    }
+
+    public void setSpecname(EditText specname) {
+        this.specname = specname;
+    }
+
+
 /**
  public void addModuleToRecycler(ModuleG module) {
- ModulesListAdapter modulesListAdapter = new ModulesListAdapter(ModulesListContent.getModulesList(), this);
+ NotesListAdapter modulesListAdapter = new NotesListAdapter(NotesListContent.getModulesList(), this);
  modulesListAdapter.listData.add(module);
  Log.e("e","inside addModuleToRecycler");
  modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);

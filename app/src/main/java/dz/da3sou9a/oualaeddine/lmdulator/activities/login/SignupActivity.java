@@ -16,6 +16,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.UserSessionManager;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.FirstTimeSetup;
 import dz.da3sou9a.oualaeddine.lmdulator.db.UsersTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.items.User;
@@ -122,11 +123,16 @@ public class SignupActivity extends AppCompatActivity {
         int userId = db.getUserIdByName(newUser.getUserName());
         newUser.setUserId(userId);
         Intent intent = new Intent(getApplicationContext(), FirstTimeSetup.class);
-        SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+
+       /** SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = preferences.edit();
         prefEditor.putInt("userID", userId);
         prefEditor.putString("userName", newUser.getUserName());
-        prefEditor.commit();
+        prefEditor.commit();**/
+        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
+
+        userSessionManager.createUserLoginSession(newUser.getUserName(),userId);
+
         startActivity(intent);
 
         finish();

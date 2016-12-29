@@ -1,78 +1,74 @@
 package dz.da3sou9a.oualaeddine.lmdulator.miche;
 
+import android.util.Log;
+
 import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
 import dz.da3sou9a.oualaeddine.lmdulator.items.Unit;
 
-/**
- * Created by Ouala eddine on 07/10/2016.
- */
-
 public class Calcul {
-    public int credModule(ModuleG moduleG) {
-        if (moduleG.getMoy() > 10) {
+    public static int credModule(ModuleG moduleG) {
+        if (Calcul.moyModule(moduleG) >= 10) {
             return moduleG.getDefCred();
-        } else {
-            return 0;
         }
+        return 0;
     }
 
-    public int credUnit(Unit unit) {
+    public static int credUnit(Unit unit) {
 
-        if (unit.getUnitMoy() < 10) {
+        if (moyUnit(unit) >= 10) {
             return defCredUnit(unit);
-        } else {
-            return 0;
         }
+        int cred = 0;
+        for (ModuleG module : unit.getUnitModulesList()) {
+            cred += credModule(module);
+        }
+        return cred;
     }
 
-    public int credSemester(Semestre semestre) {
-        if (semestre.getSemesterMoy() < 10) {
+    public static int credSemester(Semestre semestre) {
+        if (moySemester(semestre) >= 10) {
             return defCredSemester(semestre);
-        } else {
-            return 0;
         }
+        int cred = 0;
+        for (Unit unit : semestre.getSemester()) {
+            credUnit(unit);
+        }
+        return cred;
     }
 
-    public int credYear(Annee annee) {
+    public static int credYear(Annee annee) {
         if (annee.getYearMoy() < 10) {
             return defCredYear(annee);
-        } else {
-            return 0;
         }
+        return credSemester(annee.getS1()) + credSemester(annee.getS2());
     }
 
-    public int defCredUnit(Unit unit) {
+    public static int defCredUnit(Unit unit) {
         int credUnit = 0;
-        for (Object next : unit.getUnitModulesList()) {
-            ModuleG module = (ModuleG) next;
-            credUnit = +module.getDefCred();
+        for (ModuleG next : unit.getUnitModulesList()) {
+            credUnit += credModule(next);
         }
-
         return credUnit;
     }
 
-    public int defCredSemester(Semestre semestre) {
+    public static int defCredSemester(Semestre semestre) {
         int credSem = 0;
-        for (Object next : semestre.getSemester()) {
-            credSem = +defCredUnit((Unit) next);
+        for (Unit next : semestre.getSemester()) {
+            credSem += defCredUnit(next);
         }
-
         return credSem;
     }
 
-    public int defCredYear(Annee annee) {
+    public static int defCredYear(Annee annee) {
         int credYear = 0;
-
-        credYear = +defCredSemester(annee.getS1()) + defCredSemester(annee.getS2());
-
+        credYear += defCredSemester(annee.getS1()) + defCredSemester(annee.getS2());
         return credYear;
     }
 
 
-    public double moyModule(ModuleG module) {
-
+    public static double moyModule(ModuleG module) {
         double td = module.getTd(),
                 tp = module.getTp(),
                 controle = module.getCont();
@@ -80,40 +76,55 @@ public class Calcul {
         boolean d = module.isTdState(),
                 p = module.isTpState();
 
-        if (d == true && p == true) {
-            return (((td + tp) / 2) + controle) / 3;
-        } else if (d == false && p == true) {
-            return ((controle * 2) + tp) / 3;
-        } else if (d == true && p == false) {
-            return ((controle * 2) + td) / 3;
+        double moy = 0;
+        if (d && p) {
+            moy = (((td + tp) / 2) + controle * 2) / 3;
+        } else if (!d && p) {
+            moy = ((controle * 2) + tp) / 3;
+        } else if (d) {
+            moy = ((controle * 2) + td) / 3;
         } else {
-            return controle;
+            moy = controle;
         }
+        return moy;
     }
 
-    public double moyUnit(Unit unit) {
+    public static double moyUnit(Unit unit) {
 
         double sommeModuleMoy = 0;
         int sommeCoef = 0;
-        for (Object module : unit.getUnitModulesList()) {
-            sommeModuleMoy = +moyModule((ModuleG) module) * ((ModuleG) module).getCoef();
-            sommeCoef = +((ModuleG) module).getCoef();
+        for (ModuleG module : unit.getUnitModulesList()) {
+            sommeModuleMoy += moyModule(module) * module.getCoef();
+            sommeCoef += module.getCoef();
         }
-        return sommeModuleMoy / sommeCoef;
+        double moyU = sommeModuleMoy / sommeCoef;
+        if (String.valueOf(moyU).equals("NaN")) {
+            moyU = 0;
+        }
+        return moyU;
 
     }
 
-    public double moySemester(Semestre semestre) {
+    public static double moySemester(Semestre semestre) {
         double sommeUnitMoy = 0;
         int sommeCoef = 0;
-        for (Object unit : semestre.getSemester()) {
-            sommeUnitMoy = +moyUnit((Unit) unit) * ((Unit) unit).getCoefU();
-            sommeCoef = +((Unit) unit).getCoefU();
+        for (Unit unit : semestre.getSemester()) {
+            sommeUnitMoy += moyUnit(unit) * coefUnit(unit);
+            sommeCoef += coefUnit(unit);
         }
         return sommeUnitMoy / sommeCoef;
     }
 
-    public double moyYear(Annee annee) {
+    private static int coefUnit(Unit unit) {
+        int coefUnit = 0;
+        unit.toString();
+        for (ModuleG module : unit.getUnitModulesList()) {
+            coefUnit = coefUnit + module.getCoef();
+        }
+        return coefUnit;
+    }
+
+    public static double moyYear(Annee annee) {
         return (moySemester(annee.getS1()) + moySemester(annee.getS2())) / 2;
     }
 

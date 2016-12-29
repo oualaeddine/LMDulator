@@ -16,6 +16,7 @@ import android.widget.Toast;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import dz.da3sou9a.oualaeddine.lmdulator.R;
+import dz.da3sou9a.oualaeddine.lmdulator.UserSessionManager;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.Launcher;
 import dz.da3sou9a.oualaeddine.lmdulator.db.UsersTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.items.User;
@@ -129,11 +130,15 @@ public class LoginActivity extends AppCompatActivity {
 
         /** implement SharedPreferences**/
 
-        preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+       /** preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor prefEditor = preferences.edit();
         prefEditor.putInt("userID", userId);
         prefEditor.putString("userName", loggedUser.getUserName());
-        prefEditor.commit();
+        prefEditor.commit();**/
+
+        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
+
+        userSessionManager.createUserLoginSession(loggedUser.getUserName(),userId);
 
         startActivity(intent);
 

@@ -60,12 +60,12 @@ public class L1 {
 	}
 	public void initSL1(){
 		initUL1();
-		s1 = new Semestre("Semestre 1");
+		s1 = new Semestre(1);
 		s1.addUnitToSemester(u11);
 		s1.addUnitToSemester(u21);
 		s1.addUnitToSemester(u31);
 		s1.addUnitToSemester(u41);
-		s2 = new Semestre("Semestre 2");
+		s2 = new Semestre(2);
 		s2.addUnitToSemester(u12);
 		s2.addUnitToSemester(u22);
 		s2.addUnitToSemester(u32);

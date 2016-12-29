@@ -2,6 +2,7 @@ package dz.da3sou9a.oualaeddine.lmdulator.activities.notesRecyclerView;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
     private LayoutInflater inflator;
 
     public ViewAdapter(Context context, List<ModuleG> data) {
+        Log.e("inside","inside ViewAdapter constructor");
         inflator = LayoutInflater.from(context);
         this.data = data;
     }
@@ -41,15 +43,15 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
         //Todo:set colors
         holder.moduleName.setText(module.getModuleName());
         holder.moduleName.setBackgroundColor(module.getColor());
-        holder.cred.setText(module.getCred());
+        //holder.cred.setText(module.getCred());
 
-        holder.tp.setEnabled(module.isTpState());
-        if (module.isTpState()) holder.tp.setText((int) module.getTp());
+        //holder.tp.setEnabled(module.isTpState());
+        //if (module.isTpState()) holder.tp.setText((int) module.getTp());
 
-        holder.td.setEnabled(module.isTdState());
-        if (module.isTdState()) holder.td.setText((int) module.getTd());
+        //holder.td.setEnabled(module.isTdState());
+        //if (module.isTdState()) holder.td.setText((int) module.getTd());
 
-        holder.moy.setText((int) module.getMoy());//TODO:set text decimal
+        //holder.moy.setText((int) module.getMoy());//TODO:set text decimal
 
     }
 
@@ -72,7 +74,5 @@ public class ViewAdapter extends RecyclerView.Adapter<ViewAdapter.MyViewHolder> 
             td = (EditText) itemView.findViewById(R.id.td);
             cont = (EditText) itemView.findViewById(R.id.cont);
         }
-
-
     }
 }
