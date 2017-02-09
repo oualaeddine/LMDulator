@@ -1,4 +1,4 @@
-package dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi;
+package dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.components;
 
 
 import android.graphics.Color;
@@ -111,7 +111,8 @@ public class BuilderManager {
                 .normalTextRes(R.string.text_outside_circle_button_text_normal)
                 .pieceColor(Color.WHITE);
     }
-    static TextOutsideCircleButton.Builder AddModule() {
+
+    public static TextOutsideCircleButton.Builder AddModule() {
         return new TextOutsideCircleButton.Builder()
                 .normalImageRes(getAddImg())
                 .normalText("ajouter un module")
@@ -133,7 +134,7 @@ public class BuilderManager {
                 .pieceColor(Color.WHITE);
     }
 
-    static HamButton.Builder getLauncherMenuBoutton() {
+    public static HamButton.Builder getLauncherMenuBoutton() {
         incIndex();
         return new HamButton.Builder()
                 .normalImageRes(getLauncherImgRes())

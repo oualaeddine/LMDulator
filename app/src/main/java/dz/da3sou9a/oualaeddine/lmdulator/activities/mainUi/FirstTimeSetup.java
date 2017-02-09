@@ -13,6 +13,7 @@ import java.util.HashMap;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.UserSessionManager;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.dashboard.Dashboard;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -25,44 +26,21 @@ public class FirstTimeSetup extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_time_setup);
 
-        //   final Serializable loggedUserId =  getIntent().getSerializableExtra("loggedUserId");
-        //  final Serializable loggedUserName =  getIntent().getSerializableExtra("loggedUserName");
-       /** SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-        int loggedUserId = preferences.getInt("userId", 99);
-        String loggedUserName = preferences.getString("userName", "noUser");
-        Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
-**/
-
-
-        UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
-
-        HashMap loggedUser = userSessionManager.getUserDetails();
-
-        Toast.makeText(getBaseContext(), "userId:" + loggedUser.get("userId") + "  username:" + loggedUser.get("name"), Toast.LENGTH_LONG).show();
-
-
         Button butmias = (Button) findViewById(R.id.butmias);
         Button butautre = (Button) findViewById(R.id.butautre);
 
-
-        assert butmias != null;
         butmias.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentl1 = new Intent(FirstTimeSetup.this, MainActivity.class);
-                //     intentl1.putExtra("userId", loggedUserId);
-                //    intentl1.putExtra("loggedUserName", loggedUserName);
+                Intent intentl1 = new Intent(FirstTimeSetup.this, Dashboard.class);
                 startActivity(intentl1);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
-        assert butautre != null;
         butautre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentl2 = new Intent(FirstTimeSetup.this, Customizer.class);
-                //  intentl2.putExtra("userId", loggedUserId);
-                //intentl2.putExtra("loggedUserName", loggedUserName);
+                Intent intentl2 = new Intent(FirstTimeSetup.this, Dashboard.class);
                 startActivity(intentl2);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }

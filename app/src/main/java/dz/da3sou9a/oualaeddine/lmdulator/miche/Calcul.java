@@ -1,7 +1,5 @@
 package dz.da3sou9a.oualaeddine.lmdulator.miche;
 
-import android.util.Log;
-
 import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 import dz.da3sou9a.oualaeddine.lmdulator.items.Semestre;
@@ -30,16 +28,17 @@ public class Calcul {
     public static int credSemester(Semestre semestre) {
         if (moySemester(semestre) >= 10) {
             return defCredSemester(semestre);
+        } else {
+            int cred = 0;
+            for (Unit unit : semestre.getSemester()) {
+                cred += credUnit(unit);
+            }
+            return cred;
         }
-        int cred = 0;
-        for (Unit unit : semestre.getSemester()) {
-            credUnit(unit);
-        }
-        return cred;
     }
 
     public static int credYear(Annee annee) {
-        if (annee.getYearMoy() < 10) {
+        if (annee.getYearMoy() >= 10) {
             return defCredYear(annee);
         }
         return credSemester(annee.getS1()) + credSemester(annee.getS2());
@@ -48,9 +47,13 @@ public class Calcul {
     public static int defCredUnit(Unit unit) {
         int credUnit = 0;
         for (ModuleG next : unit.getUnitModulesList()) {
-            credUnit += credModule(next);
+            credUnit += defCredModule(next);
         }
         return credUnit;
+    }
+
+    private static int defCredModule(ModuleG next) {
+        return next.getDefCred();
     }
 
     public static int defCredSemester(Semestre semestre) {

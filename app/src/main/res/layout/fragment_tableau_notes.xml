@@ -180,31 +180,34 @@
                     </TableRow>
                 </TableLayout>
 
+
                 <FrameLayout
                     android:id="@+id/slides_launcher"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_height="wrap_content"
+                    android:visibility="gone">
 
                     <include
                         layout="@layout/slider_launcher_container"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:visibility="gone" />
                 </FrameLayout>
 
             </LinearLayout>
 
         </android.support.v4.widget.NestedScrollView>
 
-        <com.nightonke.boommenu.BoomMenuButton
-            android:id="@+id/bmb"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floatingActionButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|right"
-            android:layout_marginBottom="10dp"
-            android:layout_marginRight="10dp"
-            tools:layout_editor_absoluteX="300dp"
-            tools:layout_editor_absoluteY="118dp" />
+            android:layout_marginBottom="25dp"
+            android:layout_marginRight="25dp"
+            android:clickable="true"
+            app:elevation="10dp"
+            app:srcCompat="@drawable/add1" />
     </android.support.design.widget.CoordinatorLayout>
 
 </FrameLayout>

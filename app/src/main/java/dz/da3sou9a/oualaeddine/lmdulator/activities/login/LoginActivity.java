@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.UserSessionManager;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.Launcher;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.dashboard.Dashboard;
 import dz.da3sou9a.oualaeddine.lmdulator.db.UsersTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 
@@ -110,36 +111,27 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        // Disable going back to the MainActivity
+
         moveTaskToBack(true);
     }
 
     public void onLoginSuccess(User loggedUser) {
         _loginButton.setEnabled(true);
 
-        Intent intent = new Intent(getApplicationContext(), Launcher.class);
-
-//        intent.putExtra("loggedUserName", (Serializable) loggedUser.getUserName());
-
         UsersTableManager usersTableManager = new UsersTableManager(getApplicationContext());
         usersTableManager.open();
         String email = _emailText.getText().toString();
         int userId = usersTableManager.getUserIdByName(email);
         Log.e("o", String.valueOf(userId));
-        //  intent.putExtra("userId", userId);
-
-        /** implement SharedPreferences**/
-
-       /** preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor prefEditor = preferences.edit();
-        prefEditor.putInt("userID", userId);
-        prefEditor.putString("userName", loggedUser.getUserName());
-        prefEditor.commit();**/
 
         UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
-
         userSessionManager.createUserLoginSession(loggedUser.getUserName(),userId);
-
+        Intent intent;
+        if (userSessionManager.getSessionYear() != 0)
+            intent = new Intent(getApplicationContext(), Launcher.class);
+        else {
+            intent = new Intent(getApplicationContext(), Dashboard.class);
+        }
         startActivity(intent);
 
         finish();
@@ -156,7 +148,6 @@ public class LoginActivity extends AppCompatActivity {
         String email = _emailText.getText().toString();
         String password = _passwordText.getText().toString();
         //TODO: test if the user exists in db
-
 
         if (email.isEmpty()/** || !android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()**/) {
             _emailText.setError("enter a valid email address");

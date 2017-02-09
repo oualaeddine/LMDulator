@@ -1,27 +1,6 @@
-package dz.da3sou9a.oualaeddine.lmdulator;
+package dz.da3sou9a.oualaeddine.lmdulator.activities.charts;
 
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
-import android.view.Gravity;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.github.mikephil.charting.charts.PieChart;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.PieData;
-import com.github.mikephil.charting.data.PieDataSet;
-import com.github.mikephil.charting.data.PieEntry;
-import com.github.mikephil.charting.highlight.Highlight;
-import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
-
-import java.util.ArrayList;
-
-import dz.da3sou9a.oualaeddine.lmdulator.db.ModulesTableManager;
 
 public class ChartPieFragment extends AppCompatActivity {
   /**  TextView t_17,t_15,t_12,t_10,t_5,t_0,moyen;

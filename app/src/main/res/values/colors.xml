@@ -15,11 +15,18 @@ vert vert
     <color name="primary_dark">#33691e</color>
 
     bleu!-->
-    <color name="primary">#2196F3</color>
-    <color name="primary_dark">#1976D2</color>
-    <color name="accent">#FFC107</color>
+
+
+    <color name="viewBg">#f1f5f8</color>
+    <color name="album_title">#4c4c4c</color>
+
+    <color name="primary">#2196f3</color>
+    <color name="primary_dark">#1976d2</color>
+    <color name="accent">#ffc107</color>
     <color name="window_background">#F5F5F5</color>
-    <color name="primary_light">#DCEDC8</color>
+    <color name="primary_light">#ffffff</color>
+
+
     <!--<color name="accent">#FFC107</color>!-->
     <color name="primary_text">#212121</color>
     <color name="secondary_text">#757575</color>

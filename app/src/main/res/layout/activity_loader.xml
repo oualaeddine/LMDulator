@@ -41,17 +41,22 @@
             android:paddingRight="24dp"
             android:paddingTop="24dp">
 
-            <Button
-                android:id="@+id/button3"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="Login" />
+            <!--     <Button
+                     android:id="@+id/button3"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:text="Login" />
 
+                 <Button
+                     android:id="@+id/button4"
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:text="Sign up" />-->
             <Button
-                android:id="@+id/button4"
+                android:id="@+id/btnGo"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="Sign up" />
+                android:text="Go!" />
         </LinearLayout>
     </LinearLayout>
 

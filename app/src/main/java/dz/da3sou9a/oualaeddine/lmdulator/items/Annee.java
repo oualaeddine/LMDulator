@@ -6,6 +6,7 @@ public class Annee {
     private int cred, yearId, credMinAnnee, credMinS1, credMinS2;
     private String specName, AnneeName;
     private long yearMoy;
+    private int thumbnail;
 
     public Annee(String s) {
         specName = s;
@@ -115,5 +116,13 @@ public class Annee {
                 ", AnneeName='" + AnneeName + '\'' +
                 ", yearMoy=" + yearMoy +
                 '}';
+    }
+
+    public int getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(int thumbnail) {
+        this.thumbnail = thumbnail;
     }
 }

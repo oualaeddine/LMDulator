@@ -5,9 +5,13 @@
     <string name="dummy_content">DUMMY\nCONTENT</string>
 
 
+    <string name="action_add_favourite">Add to Favourites</string>
+    <string name="action_play_next">Play Next</string>
+    <string name="backdrop_title">LOVE MUSIC</string>
+    <string name="backdrop_subtitle">This season top 20 albums</string>
 
 
-<!--*********************************************************************************************!-->
+    <!--*********************************************************************************************!-->
     <string name="title_activity_welcome">Home Screen</string>
     <string name="next">NEXT</string>
     <string name="skip">SKIP</string>
@@ -29,7 +33,7 @@
     <string name="play_again">Play Again</string>
 
 
-<!-- ********************************************************************************************!-->
+    <!-- ********************************************************************************************!-->
     <string name="simple_circle_button_example">Simple Circle Button Example</string>
     <string name="button_place_alignment_example">Button Place Alignment Example</string>
     <string name="text_inside_circle_button_example">Text Inside Circle Button Example</string>
@@ -60,15 +64,6 @@
     <string name="text_ham_button_sub_text_normal">Ham Button Sub Text(Normal)</string>
     <string name="text_ham_button_sub_text_highlighted">Ham Button Sub Text(Highlighted)</string>
     <string name="text_ham_button_sub_text_unable">Ham Button Sub Text(Unable)</string>
-
-
-
-
-
-
-
-
-
 
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -296,4 +291,48 @@
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="defZero">0.00</string>
     <string name="def_00">00</string>
+    <string name="title_help_list">Items</string>
+    <string name="title_help_detail">Help Detail</string>
+
+
+    <string-array name="all_images">
+        <item>@drawable/image1_a</item>
+        <item>@drawable/image1_b</item>
+        <item>@drawable/image1_c</item>
+        <item>@drawable/image1_d</item>
+        <item>@drawable/image1_e</item>
+        <item>@drawable/image1_f</item>
+        <item>@drawable/image1_g</item>
+        <item>@drawable/image1_h</item>
+        <item>@drawable/image1_i</item>
+        <item>@drawable/image1_j</item>
+        <item>@drawable/image1_k</item>
+        <item>@drawable/image1_l</item>
+        <item>@drawable/image1_m</item>
+        <item>@drawable/image1_n</item>
+        <item>@drawable/image1_o</item>
+        <item>@drawable/image1_p</item>
+
+    </string-array>
+
+    <string-array name="all_contacts">
+        <item>Mehul Rughani</item>
+        <item>Tejas Jasani</item>
+        <item>Ravi Gadesha</item>
+        <item>Ravi Soneji</item>
+        <item>Bharat Mamtora</item>
+        <item>Vivek Tank</item>
+        <item>Parth Trivedi</item>
+        <item>Hardik Trivedi</item>
+        <item>Mehul Rughani</item>
+        <item>Tejas Jasani</item>
+        <item>Ravi Soneji</item>
+        <item>Mehul Rughani</item>
+        <item>Bharat Mamtora</item>
+        <item>Vivek Tank</item>
+        <item>Parth Trivedi</item>
+        <item>Hardik Trivedi</item>
+        <item>Mehul Rughani</item>
+    </string-array>
+
 </resources>

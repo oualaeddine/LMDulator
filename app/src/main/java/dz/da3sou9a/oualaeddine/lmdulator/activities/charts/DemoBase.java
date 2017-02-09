@@ -1,11 +1,13 @@
 
-package dz.da3sou9a.oualaeddine.lmdulator;
+package dz.da3sou9a.oualaeddine.lmdulator.activities.charts;
 
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.renderscript.Type;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
+
+import dz.da3sou9a.oualaeddine.lmdulator.R;
 
 /**
  * Baseclass of all Activities of the Demo Application.

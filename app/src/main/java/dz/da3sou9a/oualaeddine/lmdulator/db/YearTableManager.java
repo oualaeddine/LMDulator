@@ -6,6 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
+import java.util.LinkedList;
+
 import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 
@@ -60,18 +62,18 @@ public class YearTableManager extends dbManager {
         Log.e("", "" + value.get(spec_name));
         open().insert(Annee_Table_Name, null, value);
         /**open().execSQL("insert into `" + Annee_Table_Name + "` ( `" +
-                spec_name +             "` , `" +
-                anneName +              "` , `" +
-                cred_min_annee +        "` , `" +
-                cred_min_s1 +           "` , `" +
-                cred_min_s2 +           "` , `" +
-                userId +                "` )" +
-                                        "values('" +
-                annee.getSpecName() +   "','" +
-                annee.getAnneeName() +  "'," +
-                annee.getCredMinAnnee()+ "," +
-                annee.getCredMinS1() +  "," +
-                annee.getCredMinS2() +  ",0) ; ");**/
+         spec_name +             "` , `" +
+         anneName +              "` , `" +
+         cred_min_annee +        "` , `" +
+         cred_min_s1 +           "` , `" +
+         cred_min_s2 +           "` , `" +
+         userId +                "` )" +
+         "values('" +
+         annee.getSpecName() +   "','" +
+         annee.getAnneeName() +  "'," +
+         annee.getCredMinAnnee()+ "," +
+         annee.getCredMinS1() +  "," +
+         annee.getCredMinS2() +  ",0) ; ");**/
 
     }
 
@@ -109,11 +111,22 @@ public class YearTableManager extends dbManager {
     }
 
     public Cursor getGen(int yearId) {
-        Cursor res = open().rawQuery("`select * from `" + Annee_Table_Name + "` where `" + year_id + "` = " + yearId , null);
+        Cursor res = open().rawQuery("`select * from `" + Annee_Table_Name + "` where `" + year_id + "` = " + yearId, null);
         return res;
     }
 
     public static String getCreate_Year_Table() {
         return create_Year_Table;
+    }
+
+    public LinkedList<Annee> getYearByUserId(int iduser) {
+        Cursor cursor = open().rawQuery("select * from `" + Annee_Table_Name + "` where `" + userId + "` = " + iduser + "", null);
+        LinkedList<Annee> x = new LinkedList<Annee>();
+        for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            Annee y = new Annee(cursor.getString(cursor.getColumnIndex(spec_name)));
+            y.setYearId(cursor.getInt(cursor.getColumnIndex(year_id)));
+            x.add(y);
+        }
+        return x;
     }
 }

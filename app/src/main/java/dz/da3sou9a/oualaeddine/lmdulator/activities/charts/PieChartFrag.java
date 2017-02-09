@@ -1,4 +1,4 @@
-package dz.da3sou9a.oualaeddine.lmdulator;
+package dz.da3sou9a.oualaeddine.lmdulator.activities.charts;
 
 import android.graphics.Color;
 import android.graphics.Typeface;

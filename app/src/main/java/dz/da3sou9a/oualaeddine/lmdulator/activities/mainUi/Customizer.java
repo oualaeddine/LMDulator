@@ -40,9 +40,12 @@ import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 import static android.view.View.VISIBLE;
 
 public class Customizer extends AppCompatActivity {
-    private TableRow modulesList;
-    private Button btnSave, btnEditModules;
-    private EditText specname, annee, nbrUnitsS1, nbrUnitsS2;
+    private Button btnSave;
+    private EditText specname;
+    private EditText annee;
+
+    public Customizer() {
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,43 +56,27 @@ public class Customizer extends AppCompatActivity {
 
         RecyclerView recyclerView;
         final ModulesListAdapter modulesListAdapter;
-/**
- SharedPreferences preferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
- int loggedUserId = preferences.getInt("userId", 1);
- String loggedUserName = preferences.getString("userName", "noUser");
- int currentYear = 1;
- Toast.makeText(getBaseContext(), "userId:" + loggedUserId + "  username:" + loggedUserName, Toast.LENGTH_LONG).show();
- **/
-        final UserSessionManager userSessionManager = new UserSessionManager(getApplicationContext());
 
+        final UserSessionManager userSessionManager = new UserSessionManager(this);
         final HashMap loggedUser = userSessionManager.getUserDetails();
-
         final int loggedUserId = Integer.valueOf(loggedUser.get("userId").toString());
 
         recyclerView = (RecyclerView) findViewById(R.id.modules_list_rec);
-        //LayoutManager LinearLayoutManager
-        int currentYear = 1;
-        //loggedUserId=1;
+        int currentYear = 0;
         if (userSessionManager.getSessionYear() > 0) {
             currentYear = userSessionManager.getSessionYear();
         }
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         final ModulesTableManager db = new ModulesTableManager(this);
         List<ModuleG> semesters = ModulesListContent.getModulesList(db, loggedUserId, currentYear);
         modulesListAdapter = new ModulesListAdapter(semesters, this);
         recyclerView.setAdapter(modulesListAdapter);
 
-        Log.e("list data recycler size", String.valueOf(modulesListAdapter.listData.size()));
-        /** end using recyclerView**/
-        /**
-         final int loggedUserId = (int) getIntent().getSerializableExtra("loggedUserId");
-         final String loggedUserName = (String) getIntent().getSerializableExtra("loggedUserName");
-         **/
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+       /* FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         assert fab != null;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,31 +84,21 @@ public class Customizer extends AppCompatActivity {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
-        });
+        });*/
 
         specname = (EditText) findViewById(R.id.SpecName);
         annee = (EditText) findViewById(R.id.textAnnee);
-       // nbrUnitsS1 = (EditText) findViewById(R.id.nbrUnitS1);
-       // nbrUnitsS2 = (EditText) findViewById(R.id.nbrUnitS2);
-
-
-                    modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size());
-
-
 
         btnSave = (Button) findViewById(R.id.btnS);
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //  db.incVersion();
-
                 Intent intentNotes = new Intent(Customizer.this, Launcher.class);
                 startActivity(intentNotes);
                 overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
             }
         });
 
-        //final EditText content = (EditText) findViewById(R.id.content);
         final ImageButton addModule = (ImageButton) findViewById(R.id.imageButtonAddModule);
         final YearTableManager Ydb = new YearTableManager(getApplicationContext());
 
@@ -134,15 +111,10 @@ public class Customizer extends AppCompatActivity {
                 Ydb.addYear(newYear, finalLoggedUser);
                 final int y = Ydb.getYearidBySpecName(_SPECNAME);
                 userSessionManager.setCurrentYearId(y);
-          //      ModuleG newModule = new ModuleG(content.getText().toString());
-            ModuleG newModule = new ModuleG("nouveau module");
+                ModuleG newModule = new ModuleG("nouveau module");
                 newModule.setUserId(loggedUserId);
-                //modulesListAdapter.listData.add(newModule);
-                //modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
-                //newModule.setYearId(Integer.valueOf(annee.getText().toString()));
                 FragmentTransaction manager = getSupportFragmentManager().beginTransaction();
                 ModuleCustomizePopup popup = new ModuleCustomizePopup();
-                popup.setModule(y, newModule, modulesListAdapter, newYear, finalLoggedUser);
                 popup.show(manager, null);
             }
         });
@@ -153,46 +125,4 @@ public class Customizer extends AppCompatActivity {
         moveTaskToBack(true);
         finish();
     }
-
-    public EditText getNbrUnitsS2() {
-        return nbrUnitsS2;
-    }
-
-    public void setNbrUnitsS2(EditText nbrUnitsS2) {
-        this.nbrUnitsS2 = nbrUnitsS2;
-    }
-
-    public EditText getNbrUnitsS1() {
-        return nbrUnitsS1;
-    }
-
-    public void setNbrUnitsS1(EditText nbrUnitsS1) {
-        this.nbrUnitsS1 = nbrUnitsS1;
-    }
-
-    public EditText getAnnee() {
-        return annee;
-    }
-
-    public void setAnnee(EditText annee) {
-        this.annee = annee;
-    }
-
-    public EditText getSpecname() {
-        return specname;
-    }
-
-    public void setSpecname(EditText specname) {
-        this.specname = specname;
-    }
-
-
-/**
- public void addModuleToRecycler(ModuleG module) {
- NotesListAdapter modulesListAdapter = new NotesListAdapter(NotesListContent.getModulesList(), this);
- modulesListAdapter.listData.add(module);
- Log.e("e","inside addModuleToRecycler");
- modulesListAdapter.notifyItemInserted(modulesListAdapter.listData.size() - 1);
- }
- **/
 }
