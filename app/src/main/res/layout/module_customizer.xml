@@ -6,34 +6,21 @@
     android:baselineAligned="false"
     android:orientation="vertical">
 
-    <TableRow
-        android:id="@+id/containerModuleName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:baselineAligned="false">
 
-        <FrameLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
 
             <EditText
                 android:id="@+id/editText2"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:ems="10"
                 android:inputType="textPersonName"
                 android:text="Name"
-                android:visibility="visible" />
-        </FrameLayout>
+                android:visibility="visible"
+                android:textAlignment="center"
+                android:textStyle="normal|bold"
+                android:textSize="22sp"
+                android:textColor="@android:color/black" />
 
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/ic_launcher" />
-
-    </TableRow>
 
     <TableRow
         android:layout_width="match_parent"
@@ -45,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Unit"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:layout_weight="1" />
 
         <EditText
@@ -54,14 +41,16 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/unit"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons" />
 
         <TextView
             android:id="@+id/textView11"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:text="Semester"
-            android:textSize="24sp"
+            android:textSize="20sp"
             android:layout_weight="1" />
 
         <EditText
@@ -70,7 +59,10 @@
             android:inputType="number"
             android:ems="10"
             android:id="@+id/semester"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons"
+            android:textColorHighlight="@color/cardview_shadow_start_color" />
 
     </TableRow>
 
@@ -83,7 +75,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/credit" />
+            android:text="@string/credit"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/cred"
@@ -91,14 +84,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons"
+            android:textColorHighlight="@color/cardview_shadow_start_color" />
 
         <TextView
             android:id="@+id/textView13"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="coef" />
+            android:text="coef"
+            android:textSize="20sp" />
 
         <EditText
             android:id="@+id/coef"
@@ -106,7 +103,10 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:ems="10"
-            android:inputType="number" />
+            android:inputType="number"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons"
+            android:textColorHighlight="@color/cardview_shadow_start_color" />
 
     </TableRow>
 

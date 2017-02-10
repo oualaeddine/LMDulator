@@ -16,13 +16,22 @@ vert vert
 
     bleu!-->
 
+    <color name="trans_white">#96ffffff</color>
+    <color name="trans_black">#96000000</color>
 
-    <color name="viewBg">#f1f5f8</color>
+
+    <color name="viewBg">#006064</color>
     <color name="album_title">#4c4c4c</color>
 
-    <color name="primary">#2196f3</color>
-    <color name="primary_dark">#1976d2</color>
-    <color name="accent">#ffc107</color>
+    <color name="primary">#006064</color>
+    <!--<color name="primary">#2196f3</color>-->
+
+    <color name="primary_dark">#003133</color>
+    <!--<color name="primary_dark">#1976d2</color>-->
+
+    <color name="accent">#00dee6</color>
+    <!--<color name="accent">#ffc107</color>-->
+
     <color name="window_background">#F5F5F5</color>
     <color name="primary_light">#ffffff</color>
 
@@ -42,7 +51,7 @@ vert vert
     <color name="aluminum">#999999</color>
     <color name="base">#AAAAAA</color>
     <color name="iron">#CCCCCC</color>
-    <color name="white">#FFFFFF</color>
+    <color name="white">#ffffff</color>
 
 
     <!-- Screens background color-->

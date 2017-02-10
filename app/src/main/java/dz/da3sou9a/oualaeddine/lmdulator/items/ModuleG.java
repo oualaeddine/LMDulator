@@ -11,7 +11,7 @@ public class ModuleG {
     private int cred = 0;
     private int id,defCred;
 	private String ModuleName;
-    private int icon = R.id.moduleImg, color = R.color.jumbo;
+    private int icon, color = R.color.jumbo;
     //Constructors
 
     public ModuleG(String moduleName) {

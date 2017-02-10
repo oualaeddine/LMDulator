@@ -22,6 +22,8 @@ import android.widget.Switch;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +42,8 @@ import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 import dz.da3sou9a.oualaeddine.lmdulator.miche.Calcul;
 
 public class FragmentOne extends Fragment {
+    FirebaseAnalytics mFirebaseAnalytics;
+    Bundle bundle;
 
     private View rootView;
     private RecyclerView recyclerView;
@@ -47,14 +51,21 @@ public class FragmentOne extends Fragment {
     private NotesListAdapter notesListAdapter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_tableau_notes, null);
         initSession();
         initFragContent();
         initFab();
+        initFirebaseAnalytics();
         return rootView;
+    }
+
+    void initFirebaseAnalytics() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "semestre 1");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
     }
 
     void initSession() {
@@ -210,6 +221,7 @@ public class FragmentOne extends Fragment {
         List<ModuleG> modules = NotesListContent.getModulesList(db, loggedUserId, year);
         List<ModuleG> modulesS1 = modulesInSem(1, modules);
         notesListAdapter = new NotesListAdapter(modulesS1, getContext());
+        //notesListAdapter.notifyDataSetChanged();
         notesListAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(notesListAdapter);
         setSemesterCred(1);
@@ -236,6 +248,8 @@ public class FragmentOne extends Fragment {
             public void onClick(View view) {
 
                 if (validate(myView)) {
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "semestre 1 addModule fab click");
+                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
                     addModuleTodDb(myView);
                     refreshItems();
                     popUpWindow.dismiss();
@@ -270,7 +284,6 @@ public class FragmentOne extends Fragment {
         EditText _coef = (EditText) view.findViewById(R.id.coef);
         Switch _isTp = (Switch) view.findViewById(R.id.isTp);
         Switch _isTd = (Switch) view.findViewById(R.id.isTd);
-        ImageView _icon = (ImageView) view.findViewById(R.id.imageButton2);
         EditText _moduleName = (EditText) view.findViewById(R.id.editText2);
 
         Unit unit = new Unit(_unit.getText().toString());
@@ -291,6 +304,8 @@ public class FragmentOne extends Fragment {
         ModulesTableManager db = new ModulesTableManager(getContext());
         db.open();
         db.addModule(newModule);
+        notesListAdapter.notifyItemInserted(notesListAdapter.getItemCount());
+        notesListAdapter.notifyDataSetChanged();
     }
 
     public boolean validate(View view) {
@@ -403,15 +418,23 @@ public class FragmentOne extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                module.setTd(0);
+                module.setTp(0);
+                module.setCont(0);
                 if (validate(tp, td, control)) {
-                    module.setCont(Double.parseDouble(control.getText().toString()));
+                    if (!control.getText().toString().equals(""))
+                        module.setCont(Double.parseDouble(control.getText().toString()));
+
                     if (module.isTdState()) {
-                        module.setTd(Double.parseDouble(td.getText().toString()));
+                        if (!td.getText().toString().equals(""))
+                            module.setTd(Double.parseDouble(td.getText().toString()));
                     } else {
                         module.setTd(0);
                     }
+
                     if (module.isTpState()) {
-                        module.setTp(Double.parseDouble(tp.getText().toString()));
+                        if (!tp.getText().toString().equals(""))
+                            module.setTp(Double.parseDouble(tp.getText().toString()));
                     } else {
                         module.setTp(0);
                     }
@@ -431,21 +454,21 @@ public class FragmentOne extends Fragment {
             private boolean validate(EditText tp, EditText td, EditText cont) {
                 boolean valid = true;
 
-                double _tp = Double.valueOf(tp.getText().toString());
-                if (_tp < 0 || _tp > 20 || tp.getText().toString().equals("")) {
+                if (tp.getText().toString().equals("") || Double.valueOf(tp.getText().toString()) < 0 || Double.valueOf(tp.getText().toString()) > 20) {
                     tp.setError("valeur entre 0 and 20");
                     valid = false;
                 }
-                double _td = Double.valueOf(td.getText().toString());
-                if (_td < 0 || _td > 20 || td.getText().toString().equals("")) {
+
+                if (td.getText().toString().equals("") || Double.valueOf(td.getText().toString()) < 0 || Double.valueOf(td.getText().toString()) > 20) {
                     td.setError("valeur entre 0 and 20");
                     valid = false;
                 }
-                double _cont = Double.valueOf(cont.getText().toString());
-                if (_cont < 0 || _cont > 20 || cont.getText().toString().equals("")) {
+
+                if (cont.getText().toString().equals("") || Double.valueOf(cont.getText().toString()) < 0 || Double.valueOf(cont.getText().toString()) > 20) {
                     cont.setError("valeur entre 0 and 20");
                     valid = false;
                 }
+
                 return valid;
             }
         });

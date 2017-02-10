@@ -1,13 +1,11 @@
 package dz.da3sou9a.oualaeddine.lmdulator;
 
-import android.app.SharedElementCallback;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
 import java.util.HashMap;
 
-import dz.da3sou9a.oualaeddine.lmdulator.activities.login.LoginActivity;
 
 /**
  * Created by berre on 12/1/2016.
@@ -77,7 +75,7 @@ public class UserSessionManager {
         return preferences.getInt(CURRENT_YEAR_ID,0);
     }
 
-    public void logoutUser(){
+   /* public void logoutUser(){
 
         editor.clear();
         editor.commit();
@@ -88,7 +86,7 @@ public class UserSessionManager {
 
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
-    }
+    }*/
 
     public void setCurrentYearId(int yId){
         editor.putInt(CURRENT_YEAR_ID,yId);

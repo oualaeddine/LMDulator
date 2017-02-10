@@ -17,11 +17,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 
 import java.util.List;
-import java.util.Random;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.UserSessionManager;
-import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.Launcher;
+import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.mainTable.activity.MainActivity;
 import dz.da3sou9a.oualaeddine.lmdulator.db.YearTableManager;
 import dz.da3sou9a.oualaeddine.lmdulator.items.Annee;
 
@@ -61,16 +60,15 @@ class AnneeAdapter extends RecyclerView.Adapter<AnneeAdapter.MyViewHolder> {
     @Override
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         int[] covers = new int[]{
-                R.drawable.year,
+                R.drawable.year2,
         };
         currentYearPosition = position;
         final Annee annee = annees.get(position);
         holder.title.setText(annee.getSpecName());
         Log.e("specname", annee.getSpecName());
         //holder.count.setText(annee.() + " songs");
-        Random r = new Random();
         // loading annee cover2 using Glide library
-        annee.setThumbnail(covers[0]);
+        annee.setThumbnail(covers[0]);//todo : covers[posistion]
         Glide.with(mContext).load(annee.getThumbnail()).into(holder.thumbnail);
         final Context context = Dashboard.getInstance();
         holder.thumbnail.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +76,7 @@ class AnneeAdapter extends RecyclerView.Adapter<AnneeAdapter.MyViewHolder> {
             public void onClick(View view) {
                 UserSessionManager userSessionManager = new UserSessionManager(context);
                 userSessionManager.setCurrentYearId(annee.getYearId());
-                Intent intent = new Intent(context, Launcher.class);
+                Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
             }
         });
@@ -113,10 +111,10 @@ class AnneeAdapter extends RecyclerView.Adapter<AnneeAdapter.MyViewHolder> {
         @Override
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
-                case R.id.action_add_favourite: {
+                /*case R.id.action_add_favourite: {
                     Toast.makeText(mContext, "Add to favourite", Toast.LENGTH_SHORT).show();
                     return true;
-                }
+                }*/
                 case R.id.action_play_next: {
                     Toast.makeText(mContext, "Supprimée! :D", Toast.LENGTH_SHORT).show();
                     deletCurrentYear();

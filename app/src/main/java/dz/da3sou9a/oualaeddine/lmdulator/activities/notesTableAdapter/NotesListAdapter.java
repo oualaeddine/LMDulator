@@ -17,16 +17,10 @@ import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 import dz.da3sou9a.oualaeddine.lmdulator.miche.Calcul;
 
-/**
- * Created by Ouala eddine on 08/10/2016.
- */
-
 public class NotesListAdapter extends RecyclerView.Adapter<NotesHolder> {
-
 
     private List<ModuleG> listData;
     private LayoutInflater inflater;
-
 
     public NotesListAdapter(List<ModuleG> listData, Context context) {
         this.listData = listData;

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -29,10 +30,14 @@
             android:foregroundGravity="top|right" />
     </TableRow>
 
-    <android.support.design.widget.TextInputLayout
+    <TextView
+        android:text="Note tp:"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
+        android:layout_height="wrap_content"
+        android:id="@+id/textVie"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:textAllCaps="false" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -42,8 +47,11 @@
             android:textAlignment="center"
             android:textSize="24sp"
             android:inputType="numberDecimal"
-            style="@style/Widget.AppCompat.EditText" />
-    </android.support.design.widget.TextInputLayout>
+            style="@style/Widget.AppCompat.EditText"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons"
+            android:textColorHighlight="@color/black_overlay" />
+
 
     <Space
         android:layout_width="match_parent"
@@ -51,10 +59,15 @@
         android:id="@+id/sp1"
         />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
+    <TextView
+        android:text="Note td:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/text16"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:textAllCaps="false" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,8 +76,10 @@
             android:singleLine="true"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:inputType="numberDecimal" />
-    </android.support.design.widget.TextInputLayout>
+            android:inputType="numberDecimal"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons" />
+
 
     <Space
         android:layout_width="match_parent"
@@ -72,30 +87,40 @@
         android:id="@+id/sp2"
         />
 
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
 
+    <TextView
+        android:text="Note controle:"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/rtrt"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:textAllCaps="false" />
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Note control"
+            android:hint="control.. /20"
             android:id="@+id/note_control"
             android:singleLine="true"
             android:textAlignment="center"
             android:textSize="24sp"
-            android:inputType="numberDecimal" />
-    </android.support.design.widget.TextInputLayout>
+            android:inputType="numberDecimal"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons" />
+
 
     <Space
         android:layout_width="match_parent"
         android:layout_height="25dp" />
 
     <TextView
-        android:text="ps: notes /20"
+        android:text="nb: notes /20"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView16" />
+        android:id="@+id/textView16"
+        android:textAlignment="center"
+        android:textStyle="normal|bold"
+        android:textAllCaps="false" />
 
     <LinearLayout
         android:orientation="horizontal"

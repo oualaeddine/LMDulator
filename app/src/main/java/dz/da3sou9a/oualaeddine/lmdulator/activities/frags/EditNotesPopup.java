@@ -7,12 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.view.ViewGroup.LayoutParams;
-
-import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.Launcher;
-import dz.da3sou9a.oualaeddine.lmdulator.items.ModuleG;
 
 public class EditNotesPopup extends Activity {
 

@@ -6,8 +6,6 @@
     android:layout_height="match_parent"
     android:layout_marginTop="20dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.Customizer"
-    tools:showIn="@layout/activity_customizer"
     android:orientation="vertical">
 
 
@@ -24,7 +22,9 @@
             android:width="120dp"
             android:hint="Nom de la specialité"
             android:inputType="text"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -39,7 +39,9 @@
             android:layout_weight="1"
             android:width="60dp"
             android:ems="10"
-            android:hint="Année" />
+            android:hint="Année"
+            android:textColor="@android:color/black"
+            android:textColorHint="@color/icons" />
 
     </android.support.design.widget.TextInputLayout>
 

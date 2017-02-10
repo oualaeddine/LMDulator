@@ -7,23 +7,18 @@ import android.widget.TextView;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 
-/**
- * Created by Ouala eddine on 08/10/2016.
- */
 
 public class NotesHolder extends RecyclerView.ViewHolder {
 
     // private ImageView icon;
-    private View container;
     private TextView moduleName, cred, moy;
     private TextView tp;
     private TextView td;
     private TextView cont;
 
-    public NotesHolder(View itemView) {
+    NotesHolder(View itemView) {
         super(itemView);
 
-        moduleName = (TextView) itemView.findViewById(R.id.TextViewItemModuleName);
         moduleName = (TextView) itemView.findViewById(R.id.moduleName);
         cred = (TextView) itemView.findViewById(R.id.cred);
         moy = (TextView) itemView.findViewById(R.id.moy);
@@ -31,13 +26,9 @@ public class NotesHolder extends RecyclerView.ViewHolder {
         td = (TextView) itemView.findViewById(R.id.td);
         cont = (TextView) itemView.findViewById(R.id.cont);
         //  icon  = (ImageView)itemView.findViewById(R.id.moduleImg);
-        container = itemView.findViewById(R.id.modules_list_rec);
-
-
-
     }
 
-    public TextView getModuleName() {
+    TextView getModuleName() {
         return moduleName;
     }
 
@@ -53,13 +44,7 @@ public class NotesHolder extends RecyclerView.ViewHolder {
     //      this.icon = icon;
     //  }
 
-    public View getContainer() {
-        return container;
-    }
 
-    public void setContainer(View container) {
-        this.container = container;
-    }
 
     public TextView getCred() {
         return cred;

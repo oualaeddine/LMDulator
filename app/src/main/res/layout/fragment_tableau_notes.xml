@@ -47,7 +47,8 @@
                             android:background="#d837474f"
                             android:maxLines="1"
                             android:text="@string/module"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/textView8"
@@ -58,7 +59,8 @@
                             android:background="#d837474f"
                             android:maxLines="1"
                             android:text="@string/tp"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/textView7"
@@ -69,7 +71,8 @@
                             android:background="#d837474f"
                             android:maxLines="1"
                             android:text="@string/td"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/textView9"
@@ -80,7 +83,8 @@
                             android:background="#d837474f"
                             android:maxLines="1"
                             android:text="@string/controle"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/textView6"
@@ -91,7 +95,8 @@
                             android:background="#d837474f"
                             android:maxLines="1"
                             android:text="@string/credit"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
 
                         <TextView
                             android:id="@+id/textView10"
@@ -102,7 +107,8 @@
                             android:background="#d837474f"
                             android:maxLines="1"
                             android:text="@string/moyenne"
-                            android:textAlignment="center" />
+                            android:textAlignment="center"
+                            android:textColor="@color/white" />
                     </TableRow>
                 </TableLayout>
 
@@ -182,16 +188,23 @@
 
 
                 <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:elevation="8dp">
+
+                    <include
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        layout="@layout/calculation_method" />
+                </FrameLayout>
+
+                <FrameLayout
                     android:id="@+id/slides_launcher"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone">
 
-                    <include
-                        layout="@layout/slider_launcher_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:visibility="gone" />
                 </FrameLayout>
 
             </LinearLayout>

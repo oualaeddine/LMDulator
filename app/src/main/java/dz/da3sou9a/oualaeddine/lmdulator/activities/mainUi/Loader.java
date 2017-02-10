@@ -9,8 +9,6 @@ import android.widget.Button;
 
 import dz.da3sou9a.oualaeddine.lmdulator.R;
 import dz.da3sou9a.oualaeddine.lmdulator.UserSessionManager;
-import dz.da3sou9a.oualaeddine.lmdulator.activities.login.LoginMain;
-import dz.da3sou9a.oualaeddine.lmdulator.activities.login.SignupActivity;
 import dz.da3sou9a.oualaeddine.lmdulator.activities.mainUi.dashboard.Dashboard;
 
 public class Loader extends AppCompatActivity {

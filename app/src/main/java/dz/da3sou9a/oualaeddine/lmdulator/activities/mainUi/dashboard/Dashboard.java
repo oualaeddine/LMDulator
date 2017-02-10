@@ -25,6 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -39,12 +40,21 @@ import dz.da3sou9a.oualaeddine.lmdulator.items.User;
 
 public class Dashboard extends AppCompatActivity {
 
+    FirebaseAnalytics mFirebaseAnalytics;
+    Bundle bundle;
     TextView noDataTv;
     int loggedUserId;
     static Context instance;
 
     public static Context getInstance() {
         return instance;
+    }
+
+    void initFirebaseAnalytics() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+        bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "dashboard");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
     }
 
     @Override
@@ -62,12 +72,15 @@ public class Dashboard extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "addYear btn click");
+                mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
                 addYearPopup(loggedUserId);
             }
         });
 
         initCollapsingToolbar();
         initRecycler();
+        initFirebaseAnalytics();
 
         try {
             Glide.with(this).load(R.drawable.cover).into((ImageView) findViewById(R.id.backdrop));

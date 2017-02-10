@@ -9,16 +9,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Space;
 import android.widget.Switch;
 import android.widget.TableRow;
 import android.widget.TextView;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -39,9 +43,11 @@ import dz.da3sou9a.oualaeddine.lmdulator.miche.Calcul;
 
 
 public class FragmentTwo extends Fragment {
+    FirebaseAnalytics mFirebaseAnalytics;
+    Bundle bundle;
     View rootView;
     private RecyclerView recyclerView;
-    private int loggedUserId = 1, year = 1;
+    private int loggedUserId = 1, year;
     private NotesListAdapter notesListAdapter;
 
     @Override
@@ -52,9 +58,17 @@ public class FragmentTwo extends Fragment {
         initSession();
         initFragContent();
         initFab();
+        initFirebaseAnalytics();
         return rootView;
     }
 
+
+    void initFirebaseAnalytics() {
+        mFirebaseAnalytics = FirebaseAnalytics.getInstance(getContext());
+        bundle = new Bundle();
+        bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "semestre 2");
+        mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
+    }
     void initSession() {
         UserSessionManager userSessionManager = new UserSessionManager(getContext());
         //final HashMap loggedUser = userSessionManager.getUserDetails();
@@ -78,21 +92,20 @@ public class FragmentTwo extends Fragment {
         List<ModuleG> modules = NotesListContent.getModulesList(db, loggedUserId, year);
         List<ModuleG> modulesS2 = modulesInSem(2, modules);
         notesListAdapter = new NotesListAdapter(modulesS2, getContext());
-
         recyclerView = (RecyclerView) rootView.findViewById(R.id.units_list_rec);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(notesListAdapter);
-        recyclerViewOnTouch(recyclerView, notesListAdapter, getContext());
+        recyclerViewOnTouch(recyclerView, getContext());
         setSemesterMoy(2);
         setSemesterCred(2);
     }
 
-    private void recyclerViewOnTouch(final RecyclerView recyclerView, final NotesListAdapter notesListAdapter, final Context context) {
+    private void recyclerViewOnTouch(RecyclerView recyclerView, final Context context) {
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
                     @Override
-                    public void onItemClick(View view, final int position) {
-                        showPopupEditNote(position, context, notesListAdapter);
+                    public void onItemClick(View view, int position) {
+                        showPopupEditNote(position, context);
                     }
 
                     @Override
@@ -105,8 +118,8 @@ public class FragmentTwo extends Fragment {
         );
     }
 
-
     /**************************************************************************************************/
+
     public void setSemesterMoy(int semester) {
         TableRow tableRowMoy;
         tableRowMoy = (TableRow) rootView.findViewById(R.id.MoyCredTR);
@@ -201,7 +214,14 @@ public class FragmentTwo extends Fragment {
     }
 
     /**************************************************************************************************/
+
     public void refreshItems() {
+        Log.e("", "refreshing Recycler");
+        ModulesTableManager db = new ModulesTableManager(getContext());
+        db.open();
+        List<ModuleG> modules = NotesListContent.getModulesList(db, loggedUserId, year);
+        List<ModuleG> modulesS2 = modulesInSem(2, modules);
+        notesListAdapter = new NotesListAdapter(modulesS2, getContext());
         notesListAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(notesListAdapter);
         setSemesterCred(2);
@@ -214,7 +234,7 @@ public class FragmentTwo extends Fragment {
         popUpWindow.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-
+                refreshItems();
             }
         });
         LayoutInflater factory = LayoutInflater.from(context);
@@ -228,6 +248,8 @@ public class FragmentTwo extends Fragment {
             public void onClick(View view) {
 
                 if (validate(myView)) {
+                    bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, "semestre 2 addModule fab click");
+                    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, bundle);
                     addModuleTodDb(myView);
                     refreshItems();
                     popUpWindow.dismiss();
@@ -282,9 +304,7 @@ public class FragmentTwo extends Fragment {
         ModulesTableManager db = new ModulesTableManager(getContext());
         db.open();
         db.addModule(newModule);
-        refreshItems();
     }
-
 
     public boolean validate(View view) {
         final EditText _cred = (EditText) view.findViewById(R.id.cred);
@@ -347,14 +367,14 @@ public class FragmentTwo extends Fragment {
         return valid;
     }
 
-    private void showPopupEditNote(final int position, final Context context, final NotesListAdapter notesListAdapter) {
+    private void showPopupEditNote(final int position, final Context context) {
 
         final ModuleG module = notesListAdapter.getModule(position);
         final Dialog popUpWindow = new Dialog(context);
         popUpWindow.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-
+                refreshItems();
             }
         });
         LayoutInflater factory = LayoutInflater.from(context);
@@ -396,15 +416,23 @@ public class FragmentTwo extends Fragment {
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                module.setTd(0);
+                module.setTp(0);
+                module.setCont(0);
                 if (validate(tp, td, control)) {
-                    module.setCont(Double.parseDouble(control.getText().toString()));
+                    if (!control.getText().toString().equals(""))
+                        module.setCont(Double.parseDouble(control.getText().toString()));
+
                     if (module.isTdState()) {
-                        module.setTd(Double.parseDouble(td.getText().toString()));
+                        if (!td.getText().toString().equals(""))
+                            module.setTd(Double.parseDouble(td.getText().toString()));
                     } else {
                         module.setTd(0);
                     }
+
                     if (module.isTpState()) {
-                        module.setTp(Double.parseDouble(tp.getText().toString()));
+                        if (!tp.getText().toString().equals(""))
+                            module.setTp(Double.parseDouble(tp.getText().toString()));
                     } else {
                         module.setTp(0);
                     }
@@ -424,21 +452,21 @@ public class FragmentTwo extends Fragment {
             private boolean validate(EditText tp, EditText td, EditText cont) {
                 boolean valid = true;
 
-                double _tp = Double.valueOf(tp.getText().toString());
-                if (_tp < 0 || _tp > 20 || tp.getText().toString().equals("")) {
+                if (tp.getText().toString().equals("") || Double.valueOf(tp.getText().toString()) < 0 || Double.valueOf(tp.getText().toString()) > 20) {
                     tp.setError("valeur entre 0 and 20");
                     valid = false;
                 }
-                double _td = Double.valueOf(td.getText().toString());
-                if (_td < 0 || _td > 20 || td.getText().toString().equals("")) {
+
+                if (td.getText().toString().equals("") || Double.valueOf(td.getText().toString()) < 0 || Double.valueOf(td.getText().toString()) > 20) {
                     td.setError("valeur entre 0 and 20");
                     valid = false;
                 }
-                double _cont = Double.valueOf(cont.getText().toString());
-                if (_cont < 0 || _cont > 20 || cont.getText().toString().equals("")) {
+
+                if (cont.getText().toString().equals("") || Double.valueOf(cont.getText().toString()) < 0 || Double.valueOf(cont.getText().toString()) > 20) {
                     cont.setError("valeur entre 0 and 20");
                     valid = false;
                 }
+
                 return valid;
             }
         });
